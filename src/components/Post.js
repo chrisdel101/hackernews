@@ -1,26 +1,35 @@
-import React, {Component} from "react";
-
-class Post extends Component {
-	render() {
-		return (
-			<tr className="Post">
-				<td className="Post-header">
-					<p>
-						<code>src/App.js</code>
-						and save to reload.
-					</p>
-					<a
-						className="Post-link"
-						href="https://reactjs.org"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Make HackerNews
+import React from "react";
+function Post(props) {
+	{
+		return props.posts.map((post, index) => {
+			return (<tr className="Post">
+				<td className="rank">
+					<span>{post.rank}</span>
+				</td>
+				<td className="text">
+					<a className="Post-link" href={post.href} target="_blank" rel="noopener noreferrer">
+						{post.text}
 					</a>
 				</td>
-			</tr>
-		);
+				<td className="subtext">
+					<span className="score">{post.points}
+						points by {''}
+						<a href={post.user}>{''}{post.user}</a>
+					</span>
+					<span className="age">
+						{''}
+						<a href={post.age}>&nbsp;{post.age}</a>
+					</span>
+					<span className="hide">
+						{''}
+						<a href={post.hide}>&nbsp;hide</a>
+					</span>
+					<span className="comment">
+						<a href={post.comment}>&nbsp;comment</a>
+					</span>
+				</td>
+			</tr>)
+		})
 	}
 }
-
 export default Post;

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Post from "./Post";
 import Header from "./Header";
-
+import data from '../data/post_data.json'
 class Page extends Component {
 	render() {
 		return (<table className="Page">
@@ -16,10 +16,9 @@ class Page extends Component {
 					]}/>
 			</thead>
 			<tbody>
-				<Post/>
+				<Post posts={data}/>
 			</tbody>
 		</table>);
 	}
 }
-
 export default Page;
