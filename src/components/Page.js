@@ -15,41 +15,34 @@ class Page extends Component {
 	getTopIDs(url) {
 		return fetch(url).then(blob => blob.json()).then(json => json)
 	}
+	// returns a promise resolves to an object
 	getStory(id) {
 		let url = `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
 		return fetch(url).then(blob => blob.json()).then(json => json)
 	}
+	// returns a promise with object
 	componentDidMount() {
-		let promise = new Promise((resolve, reject) => {
-			let data = this.getTopIDs("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty").then((idsArray, index) => {
-				// loop over array calling func each time
-				let arr = []
-				idsArray.forEach((id, index) => {
-					if (index <= 30) {
-						// make an array of promise
-						arr.push(this.getStory(id))
-					}
-				})
-				resolve(arr)
-			})
-		}).then(promisesArr => {
-			// console.log('arr', arr)
-			let ids = promisesArr.map((promise) => {
-				return promise.then(id => {
-					return id
+		let arr = []
+		this.getTopIDs("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty").then(array => {
+			array.map((id) => {
+				return id
+			}).map(id => {
+				this.getStory(id).then(obj => {
+					arr.push(obj)
 				})
 			})
-			Promise.all((ids)).then((result) => {
-				this.setState({data: result})
-				console.log(this.state)
-				console.log('test')
-			})
-
-			// return this.setState({data: arr})
+			this.setState(prevState => ({
+				data: [
+					...prevState.data,
+					arr
+				]
+			}))
+			console.log('end', this.state)
+		}).catch(e => {
+			console.error(`An error: ${e}`)
 		})
-		// return Promise.all((finishPromises)).then((result) => {
-		// Promise.all(
 	}
+
 	render() {
 		let answer;
 		// let that = this
@@ -77,7 +70,7 @@ class Page extends Component {
 					? <div>
 							{
 								this.state.data.map((each) => {
-									return <div>{each.by}</div>
+									<div></div>
 								})
 							}
 						</div>
