@@ -20,13 +20,15 @@ class Page extends Component {
 		return fetch(url).then(blob => blob.json()).then(json => json)
 	}
 	componentDidMount() {
-		let arr = []
 		let promise = new Promise((resolve, reject) => {
-			let data = this.getTopIDs("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty").then((idsArray) => {
+			let data = this.getTopIDs("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty").then((idsArray, index) => {
 				// loop over array calling func each time
+				let arr = []
 				idsArray.forEach((id, index) => {
-					// make an array of promise
-					arr.push(this.getStory(id))
+					if (index <= 30) {
+						// make an array of promise
+						arr.push(this.getStory(id))
+					}
 				})
 				resolve(arr)
 			})
@@ -50,12 +52,13 @@ class Page extends Component {
 	}
 	render() {
 		let answer;
+		// let that = this
 		if (this.state.data.length >= 1) {
 			answer = 'yes'
 		} else {
 			answer = 'no'
 		}
-		return ('l')
+		return (
 		// <table className="Page">
 		// <thead>
 		// 	<Header Appname="Hacker News" links={[
@@ -68,13 +71,19 @@ class Page extends Component {
 		// 		]}/>
 		// </thead>
 		// <tbody>
-		// <div>
-		// 	{
-		// 		this.state.data.length
-		// 			? <div>{this.state}</div>
-		// 			: null
-		// 	}
-		// </div>)
+		<div>
+			{
+				this.state.data.length
+					? <div>
+							{
+								this.state.data.map((each) => {
+									return <div>{each.by}</div>
+								})
+							}
+						</div>
+					: <div>no</div>
+			}
+		</div>)
 		// {this.state.data}
 		// 	</tbody>
 		// </table>);
