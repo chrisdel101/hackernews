@@ -7,7 +7,7 @@ class Page extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: '',
+			data: [],
 			done: false
 		}
 	}
@@ -23,22 +23,38 @@ class Page extends Component {
 	// returns a promise with object
 	componentDidMount() {
 		let arr = []
-		this.getTopIDs("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty").then(array => {
-			array.map((id) => {
-				return id
-			}).map(id => {
-				this.getStory(id).then(obj => {
-					arr.push(obj)
+		new Promise((resolve, reject) => {
+			this.getTopIDs("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty").then(array => {
+				console.log(array)
+				array.map((id, index) => {
+					return id
+				}).map((id, index) => {
+					this.getStory(id).then(obj => {
+						arr.push(obj)
+					}).catch(e => console.error(e))
+					// console.log('in')
 				})
+				setTimeout(function() {
+					console.log(arr.length)
+					resolve(arr)
+				}, 400)
+
 			})
-			this.setState(prevState => ({
-				data: [
-					...prevState.data,
-					arr
-				]
-			}))
-			console.log('end', this.state)
-		}).catch(e => {
+		}).then(i => {
+			this.setState({data: i})
+			console.log(this.state)
+		})
+		// this.setState({data: arr})
+		// this.state.data.forEach((each, i) => {
+		// 	console.log(each)
+		// })
+		// console.log(this.state.data[0])
+		// for (var i in this.state.data) {
+		// 	for (var j in this.state.data[i]) {
+		// 		console.log(j)
+		// 	}
+		// }
+			.catch(e => {
 			console.error(`An error: ${e}`)
 		})
 	}
@@ -70,12 +86,14 @@ class Page extends Component {
 					? <div>
 							{
 								this.state.data.map((each) => {
-									<div></div>
+									return <div>{each.by}</div>
 								})
 							}
 						</div>
-					: <div>no</div>
+					: <div>Fetching API data
+						</div>
 			}
+
 		</div>)
 		// {this.state.data}
 		// 	</tbody>
