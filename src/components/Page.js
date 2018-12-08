@@ -41,7 +41,7 @@ class Page extends Component {
 
 			})
 		}).then(i => {
-			this.setState({data: i})
+			return this.setState({data: i})
 			console.log(this.state)
 		})
 		// this.setState({data: arr})
@@ -85,9 +85,14 @@ class Page extends Component {
 				this.state.data.length
 					? <div>
 							{
-								this.state.data.map((each) => {
-									return <div>{each.by}</div>
-								})
+								// this.state.data.map((each, i) => {
+								// 	return <Post key={i} data={each.by}/>
+								// })
+								// {
+								// console.log(this.state.data)
+								// }return
+								<Post data={this.state.data}/>
+
 							}
 						</div>
 					: <div>Fetching API data
