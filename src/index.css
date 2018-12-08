@@ -37,6 +37,19 @@ code {
 	grid-row: 1 /3;
 }
 
+tr.Post {
+	border: solid 1px black;
+}
+
+@media (max-width: 450px) {
+	table {
+		table-layout: fixed;
+		position: relative;
+		width: 300px;
+		background-color: yellow;
+	}
+}
+
 /* .page-inner-container {
 	display: flex;
 } */

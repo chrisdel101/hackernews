@@ -72,8 +72,8 @@ class Page extends Component {
 			answer = 'no'
 		}
 		return (
-		<table className="Page">
-            <tbody className="page-inner-container">
+		<div className="Page">
+            <table className="page-inner-container">
                 <thead className="header-container">
         			<Header Appname="Hacker News" links={[
         					"new",
@@ -84,8 +84,8 @@ class Page extends Component {
         					"submit"
         				]} onload={this.change()}/>
         		</thead>
-                {/*
-        		<tbody>
+
+        		<tbody className="body-container">
         			{
         				this.state.data.length
         					?
@@ -103,10 +103,10 @@ class Page extends Component {
         						</div>
         			}
 
-        		</tbody>*/}
-        </tbody>
+        		</tbody>
+        </table>
 
-		</table>);
+		</div>);
 	}
 }
 export default Page;
