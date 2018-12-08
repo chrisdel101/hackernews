@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import Post from "./Post";
 import Header from "./Header";
 import data from '../data/post_data.json'
+import utils from "../utils"
+
 // import getJSON from "../utils"
 class Page extends Component {
 	constructor(props) {
@@ -42,7 +44,6 @@ class Page extends Component {
 			})
 		}).then(i => {
 			return this.setState({data: i})
-			console.log(this.state)
 		})
 		// this.setState({data: arr})
 		// this.state.data.forEach((each, i) => {
@@ -58,7 +59,10 @@ class Page extends Component {
 			console.error(`An error: ${e}`)
 		})
 	}
-
+    change() {
+        let tds = document.querySelectorAll('td')
+        utils.elementsRandomColor(tds)
+    }
 	render() {
 		let answer;
 		// let that = this
@@ -68,40 +72,41 @@ class Page extends Component {
 			answer = 'no'
 		}
 		return (
-		// <table className="Page">
-		// <thead>
-		// 	<Header Appname="Hacker News" links={[
-		// 			"new",
-		// 			"comments",
-		// 			"show",
-		// 			"ask",
-		// 			"jobs",
-		// 			"submit"
-		// 		]}/>
-		// </thead>
-		// <tbody>
-		<tbody>
-			{
-				this.state.data.length
-					?
+		<table className="Page">
+            <tbody className="page-inner-container">
+                <thead className="header-container">
+        			<Header Appname="Hacker News" links={[
+        					"new",
+        					"comments",
+        					"show",
+        					"ask",
+        					"jobs",
+        					"submit"
+        				]} onload={this.change()}/>
+        		</thead>
+                {/*
+        		<tbody>
+        			{
+        				this.state.data.length
+        					?
 
-								// this.state.data.map((each, i) => {
-								// 	return <Post key={i} data={each.by}/>
-								// })
-								// {
-								// console.log(this.state.data)
-								// }return
-								<Post data={this.state.data}/>
+        								// this.state.data.map((each, i) => {
+        								// 	return <Post key={i} data={each.by}/>
+        								// })
+        								// {
+        								// console.log(this.state.data)
+        								// }return
+        								<Post data={this.state.data}/>
 
 
-					: <div>Fetching API data
-						</div>
-			}
+        					: <div>Fetching API data
+        						</div>
+        			}
 
-		</tbody>)
-		// {this.state.data}
-		// 	</tbody>
-		// </table>);
+        		</tbody>*/}
+        </tbody>
+
+		</table>);
 	}
 }
 export default Page;
