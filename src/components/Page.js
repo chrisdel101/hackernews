@@ -80,11 +80,11 @@ class Page extends Component {
 		// 		]}/>
 		// </thead>
 		// <tbody>
-		<div>
+		<tbody>
 			{
 				this.state.data.length
-					? <div>
-							{
+					?
+
 								// this.state.data.map((each, i) => {
 								// 	return <Post key={i} data={each.by}/>
 								// })
@@ -93,13 +93,12 @@ class Page extends Component {
 								// }return
 								<Post data={this.state.data}/>
 
-							}
-						</div>
+
 					: <div>Fetching API data
 						</div>
 			}
 
-		</div>)
+		</tbody>)
 		// {this.state.data}
 		// 	</tbody>
 		// </table>);

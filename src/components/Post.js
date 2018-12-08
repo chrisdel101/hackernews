@@ -6,10 +6,10 @@ function Post(props) {
         {console.log(post)}
 		return (<tr className="Post" key={index}>
 			<td className="rank">
-				<span>{post.score}</span>
+				<span>{index+1}</span>
 			</td>
 			<td className="title">
-				<a className="Post-link" href={post.url } target="_blank" rel="noopener noreferrer">
+				<a className="Post-link" href={post.url} target="_blank" rel="noopener noreferrer">
 					{post.title}
 				</a>
 			</td>
