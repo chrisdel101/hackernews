@@ -84,89 +84,27 @@ class Page extends Component {
         					"submit"
         				]} onload={this.change()}/>
         		</thead>
+            </table>
 
-        		<tbody className="body-container">
-        			{
-        				this.state.data.length
-        					?
+    		<div className="body-container">
+    			{
+    				this.state.data.length
+    					?
 
-        								// this.state.data.map((each, i) => {
-        								// 	return <Post key={i} data={each.by}/>
-        								// })
-        								// {
-        								// console.log(this.state.data)
-        								// }return
-        								<Post data={this.state.data}/>
+    								// this.state.data.map((each, i) => {
+    								// 	return <Post key={i} data={each.by}/>
+    								// })
+    								// {
+    								// console.log(this.state.data)
+    								// }return
+    								<Post data={this.state.data}/>
 
 
-        					: <div>Fetching API data
-        						</div>
-        			}
-
-        		</tbody>
-        </table>
-
+    					: <div>Fetching API data
+    						</div>
+    			}
+                </div>
 		</div>);
 	}
 }
 export default Page;
-
-class TodoApp extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			data: ''
-		}
-	}
-	// get array of ids
-	getTopIDs(url) {
-		return fetch(url).then(blob => blob.json()).then(json => json)
-	}
-	getStory(id) {
-		let url = `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
-		return fetch(url).then(blob => blob.json()).then(json => json)
-	}
-	componentDidMount() {
-		let arr = []
-		let promise = new Promise((resolve, reject) => {
-			let data = this.getTopIDs("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty").then((idArr) => {
-				idArr.forEach((id, index) => {
-					this.getStory(id).then(res => {
-						arr.push(res)
-					})
-					// if (index === idArr.length - 1) {
-					// 	console.log(arr)
-					// }
-				})
-				resolve(arr)
-			})
-		})
-		promise.then(res => {
-			this.state.done = true
-			return this.setState({data: arr})
-		})
-	}
-
-	render() {
-		return (
-		// <table className="Page">
-		// <thead>
-		// 	<Header Appname="Hacker News" links={[
-		// 			"new",
-		// 			"comments",
-		// 			"show",
-		// 			"ask",
-		// 			"jobs",
-		// 			"submit"
-		// 		]}/>
-		// </thead>
-		// <tbody>
-		<div>
-			{
-				this.state.data.length
-					? <div>Yes</div>
-					: <div>No</div>
-			}
-		</div>)
-	}
-}
