@@ -7,7 +7,7 @@ function Post(props) {
 		return (
             <div className="Post" key={index}>
     			<div className="rank">
-    				<span>{index+1}</span>
+    				<span>{index+1}.</span>
     			</div>
     			<div className="vote">
     				<span>Arrow</span>
