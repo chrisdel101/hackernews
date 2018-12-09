@@ -1,14 +1,22 @@
 import React from 'react'
 function Header(props) {
 	return (<tr className="Header">
-        <td className="header-cell">Y-Icon</td>
-		<td className="header-cell">{props.Appname}</td>
+        <td className="header-cell logo">
+            <a href="https://news.ycombinator.com">
+                <img src="https://news.ycombinator.com/y18.gif"/>
+            </a>
+        </td>
+		<td className="header-cell app-name">
+            <strong>{props.Appname}</strong>
+        </td>
 		<td className="header-cell">Login</td>
-				{
-					props.links.map((link, index) => {
-						return <td className="header-cell" key={index}>{link}</td>
-					})
-				}
+            <tr className="header-links">
+            {
+                props.links.map((link, index) => {
+                    return <td className="header-cell header-link" key={index}>{link}</td>
+                })
+            }
+            </tr>
 	</tr>)
 }
 export default Header

@@ -82,7 +82,7 @@ class Page extends Component {
         					"ask",
         					"jobs",
         					"submit"
-        				]} onload={this.change()}/>
+        				]}/>
         		</thead>
             </table>
 
