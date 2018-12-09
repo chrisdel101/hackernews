@@ -1,9 +1,16 @@
 import React from "react";
 function Post(props) {
-	console.log(props.data)
-
+    function timeElapsed(post){
+        let currentTime = new Date().getTime()
+        if(currentTime < post){
+            console.error('Error in post timing')
+            return
+        }
+        let timeElapsed = currentTime - post
+        console.log(timeElapsed)
+        return timeElapsed
+    }
 	return props.data.map((post, index) => {
-        {console.log(post)}
 		return (
             <div className="Post" key={index}>
     			<div className="rank">
@@ -25,7 +32,7 @@ function Post(props) {
         				</span>
         				<span className="age">
         					{''}
-        					<a href={post.time}>&nbsp;{post.time}</a>
+        					<a href={post.time}>&nbsp;{timeElapsed(post.time)}</a>
         				</span>
         				<span className="hide">
         					{''}

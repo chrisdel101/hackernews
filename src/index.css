@@ -69,7 +69,7 @@ body {
 }
 
 /* exclude last one in list */
-.header-link:not(:nth-child(9)) {
+.header-link:not(:nth-child(6)) {
 	border-right: black 1px solid;
 }
 
@@ -122,15 +122,21 @@ body {
 
 	.app-name strong {
 		float: left;
+		padding-top: 2px;
 	}
 
 	.app-name {
 		position: relative;
-		/* right: 18px; */
+		margin-left: 5px;
 	}
 
 	.header-link {
-		padding: 0 4px;
+		padding: 0 5px;
+	}
+
+	.header-link div {
+		position: relative;
+		bottom: 3px;
 	}
 
 	.title {
@@ -157,6 +163,12 @@ body {
 
 	.vote {
 		padding: 0 3px;
+	}
+
+	.login {
+		font-size: 12px;
+		position: relative;
+		padding: 10px;
 	}
 }
 

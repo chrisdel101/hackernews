@@ -9,11 +9,11 @@ function Header(props) {
 		<td className="header-cell app-name">
             <strong>{props.Appname}</strong>
         </td>
-		<td className="header-cell">Login</td>
+		<td className="header-cell login">login</td>
             <tr className="header-links">
             {
                 props.links.map((link, index) => {
-                    return <td className="header-cell header-link" key={index}>{link}</td>
+                    return <td className="header-cell header-link" key={index}><div>{link}</div></td>
                 })
             }
             </tr>
