@@ -39,7 +39,7 @@ class Page extends Component {
 				setTimeout(function() {
 					console.log(arr.length)
 					resolve(arr)
-				}, 400)
+				}, 2000)
 
 			})
 		}).then(i => {

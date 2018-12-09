@@ -10,7 +10,7 @@ function Post(props) {
     				<span>{index+1}.</span>
     			</div>
     			<div className="vote">
-    				<span>Arrow</span>
+    				<span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
     			</div>
                 <div className="text-container">
         			<div className="title">
