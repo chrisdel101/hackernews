@@ -170,6 +170,16 @@ body {
 		position: relative;
 		padding: 10px;
 	}
+
+	.age, .hide {
+		border-right: #828282 solid 1px;
+		padding-right: 5px;
+	}
+
+	#host-url {
+		color: #828282;
+		font-size: 11px;
+	}
 }
 
 /* .page-inner-container {

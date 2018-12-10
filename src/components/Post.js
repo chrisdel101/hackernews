@@ -41,6 +41,38 @@ function Post(props) {
         let result = msConverter(diff)
         return result
     }
+    // need routing
+    function hide(postId){
+        // get pathNames in an array
+        let pathNameArray = window.location.pathname.split('/')
+        if(pathNameArray.includes('news')){
+            return `https://news.ycombinator.com/hide?id=${postId}&goto=news`
+        } else if(pathNameArray.includes('newest')){
+            return `https://news.ycombinator.com/hide?id=${postId}&goto=newest`
+        } else {
+            console.log('no hiding')
+            return
+        }
+    }
+    function commentsLink(post){
+        // if no kids, undefined, send to ID page
+        if(!post.kids){
+            return 'discuss'
+        } else {
+            return `${post.kids.length} comments`
+        }
+    }
+    // if no url, return null in ternary
+    function hostURL(url){
+        if(!url){
+            console.log('NO URL')
+            return ''        }
+        // console.log(url)
+        let urlObj = new URL(url)
+        let hostname = urlObj.hostname
+        hostname = hostname.replace(/^(www\.)/,"");
+		return hostname
+    }
 	return props.data.map((post, index) => {
         console.log(post.time)
         console.log(post.by)
@@ -57,22 +89,25 @@ function Post(props) {
         				<a className="Post-link" href={post.url} target="_blank" rel="noopener noreferrer">
         					{post.title}
         				</a>
+                        <a id="host-url" href={`http://${hostURL(post.url)}`} target="_blank" rel="noopener noreferrer">
+                        &nbsp;{!hostURL(post.url) ? null : `(${hostURL(post.url)})` }
+                        </a>
         			</div>
                     <div className="subtext">
         				<span className="score">{post.score}
         					points by {''}
-        					<a href={post.by}>{''}{post.by}</a>
+        					<a href={`https://news.ycombinator.com/user?id=${post.by}`}>{''}{post.by}</a>
         				</span>
         				<span className="age">
         					{''}
-        					<a href={post.time}>&nbsp;{getDiff(post.time)}</a>
+        					<a href={`https://news.ycombinator.com/item?id=${post.id}`}>&nbsp;{getDiff(post.time)}</a>
         				</span>
         				<span className="hide">
         					{''}
-        					<a href="#">&nbsp;hide</a>
+        					<a href={'#'}>&nbsp;hide</a>
         				</span>
         				<span className="comment">
-        					<a href={post.descendants}>&nbsp;comments</a>
+        					<a href={`https://news.ycombinator.com/item?id=${post.id}`}>&nbsp;{commentsLink(post)}</a>
         				</span>
         			</div>
                 </div>
