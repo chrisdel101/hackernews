@@ -37,7 +37,6 @@ class Page extends Component {
 					// console.log('in')
 				})
 				setTimeout(function() {
-					console.log(arr.length)
 					resolve(arr)
 				}, 2000)
 
