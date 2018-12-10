@@ -54,6 +54,9 @@ body {
 
 .Post {
 	display: flex;
+	padding-top: 8px;
+	padding-left: 10px;
+	padding-right: 12px;
 }
 
 .text-container {
@@ -64,8 +67,9 @@ body {
 	font-size: 15px
 }
 
-.header-link {
-	font-size: 12px
+.header-link a {
+	text-decoration: none;
+	color: #000000;
 }
 
 /* exclude last one in list */
@@ -79,6 +83,7 @@ body {
 
 .title {
 	text-align: left;
+	max-width: 36em;
 }
 
 .title a:link {
@@ -95,10 +100,14 @@ body {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 7pt;
 	color: #828282;
+	float: left;
 }
 
 .vote img {
-	width: 13px
+	width: 13px;
+	position: relative;
+	bottom: 4px;
+	margin-right: 2px;
 }
 
 /* all a tags recusrively inside subtext */
@@ -107,17 +116,52 @@ body {
 	color: #828282;
 }
 
-@media (max-width: 450px) {
-	.Post {
-		padding-top: 8px;
-		padding-left: 10px;
-		padding-right: 12px;
+#host-url {
+	color: #828282;
+}
+
+.logo {
+	position: relative;
+	top: 7px;
+	margin-left: 1px;
+}
+
+.logo a {
+	float: left;
+}
+
+/* 768 and up */
+@media (min-width: 769px) {
+	.Page {
+		width: 80%;
+		margin: auto;
 	}
 
-	.logo {
-		position: relative;
-		/* right: 13px; */
-		top: 7px;
+	.vote img {
+		width: 10px;
+	}
+
+	.rank {
+		font-size: 13px;
+	}
+
+	.header-link {
+		font-size: 13px
+	}
+
+	.title {
+		font-size: 10pt;
+	}
+
+	#host-url {
+		font-size: 10px;
+	}
+}
+
+/* from 768 and down */
+@media (max-width: 768px) {
+	.Post {
+		width: 100%;
 	}
 
 	.app-name strong {
@@ -134,21 +178,19 @@ body {
 		padding: 0 5px;
 	}
 
-	.header-link div {
+	.header-link a {
+		font-size: 12px;
 		position: relative;
-		bottom: 3px;
+		bottom: 5px;
 	}
 
 	.title {
 		font-size: 11pt;
 		line-height: 14pt;
-		padding-bottom: 4px;
 	}
 
 	.subtext {
-		text-align: left;
 		font-size: 12px;
-		color: #828282;
 	}
 
 	.subtext a:link, .subtext a:visited {
@@ -161,10 +203,9 @@ body {
 		padding-right: 1px
 	}
 
-	.vote {
+	/* .vote {
 		padding: 0 3px;
-	}
-
+	} */
 	.login {
 		font-size: 12px;
 		position: relative;
@@ -177,7 +218,6 @@ body {
 	}
 
 	#host-url {
-		color: #828282;
 		font-size: 11px;
 	}
 }

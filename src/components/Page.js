@@ -74,14 +74,34 @@ class Page extends Component {
 		<div className="Page">
             <table className="page-inner-container">
                 <thead className="header-container">
-        			<Header Appname="Hacker News" links={[
-        					"new",
-        					"comments",
-        					"show",
-        					"ask",
-        					"jobs",
-        					"submit"
-        				]}/>
+        			<Header Appname="Hacker News" links={
+                        [
+        					{
+                                link:"new",
+                                url:"/newest"
+                            },
+                            {
+                                link:"comments",
+                                url: "https://news.ycombinator.com/newcomments"
+                            },
+                            {
+                                link:"show",
+                                url: "/showstories"
+                            },
+                            {
+                                link:"ask",
+                                url:"/ask"
+                            },
+                            {
+                                link: "jobs",
+                                url: "/jobs"
+                            },
+                            {
+                                link: "submit",
+                                url: "https://news.ycombinator.com/submit"
+                            }
+        				]
+                    }/>
         		</thead>
             </table>
 

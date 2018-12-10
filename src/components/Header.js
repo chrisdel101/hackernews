@@ -1,4 +1,5 @@
 import React from 'react'
+
 function Header(props) {
 	return (<tr className="Header">
         <td className="header-cell logo">
@@ -13,7 +14,7 @@ function Header(props) {
             <tr className="header-links">
             {
                 props.links.map((link, index) => {
-                    return <td className="header-cell header-link" key={index}><div>{link}</div></td>
+                    return <td className="header-cell header-link" key={index}><a href={link.url}>{link.link}</a></td>
                 })
             }
             </tr>
