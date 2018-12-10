@@ -72,8 +72,8 @@ class Page extends Component {
 		}
 		return (
 		<div className="Page">
-            <table className="page-inner-container">
-                <thead className="header-container">
+            <div className="page-inner-container">
+                <div className="header-container">
         			<Header Appname="Hacker News" links={
                         [
         					{
@@ -102,8 +102,8 @@ class Page extends Component {
                             }
         				]
                     }/>
-        		</thead>
-            </table>
+        		</div>
+            </div>
 
     		<div className="body-container">
     			{
