@@ -70,6 +70,8 @@ body {
 
 .header-links {
 	display: flex;
+	align-items: center;
+	position: relative;
 }
 
 .header-link a {
@@ -139,9 +141,11 @@ body {
 }
 
 .login {
-	font-size: 12px;
+	font-size: 13px;
 	position: absolute;
-	left: 90%;
+	left: 94.5%;
+	display: flex;
+	align-items: center;
 }
 
 .login a {
@@ -154,23 +158,37 @@ body {
 	.Page {
 		width: 80%;
 		margin: auto;
+		padding-top: 10px;
 	}
 
 	.Header {
 		display: flex;
+		align-items: center;
 		min-height: 24px
 	}
 
+	.app-name {
+		font-size: 13px;
+		margin-left: 5px;
+		align-self: flex-start;
+	}
+
+	.app-name strong {
+		padding-top: 4px;
+	}
+
 	.header-links {
-		margin-left: 10px;
+		margin-left: 5px;
+		position: static;
+		align-self: stretch;
 	}
 
 	.header-link {
-		padding: 0 3px;
+		padding: 0 8px;
 	}
 
 	.logo {
-		top: 2px
+		top: 1px
 	}
 
 	.vote img {
@@ -196,16 +214,32 @@ body {
 	}
 }
 
-/* from 768 and down */
-@media (max-width: 768px) {
+/* MOVE Appname at each of these point */
+@media (min-width: 476px) {
+	.app-name, .header-links {
+		right: 5px;
+	}
+}
+
+@media (min-width: 560px) {
+	.app-name, .header-links {
+		right: 15px;
+	}
+}
+
+@media (min-width: 615px) and (max-width:768px) {
+	.app-name, .header-links {
+		right: 32px;
+	}
+}
+
+/* MOBILE */
+/* from 0 up */
+@media (min-width: 0) and (max-width: 768px) {
 	.Post {
 		width: 100%;
 	}
 
-	/* .app-name strong {
-		float: left;
-		padding-top: 2px;
-	} */
 	.app-name {
 		position: relative;
 		margin-left: 5px;
@@ -240,11 +274,12 @@ body {
 		padding-right: 1px
 	}
 
-	/* .vote {
+	.vote {
 		padding: 0 3px;
-	} */
+	}
+
 	.login {
-		font-size: 12px;
+		font-size: 13px;
 		position: static;
 		padding: 10px;
 	}
@@ -257,8 +292,8 @@ body {
 	#host-url {
 		font-size: 11px;
 	}
-}
 
-/* .page-inner-container {
-	display: flex;
-} */
+	.page-inner-container {
+		display: flex;
+	}
+}
