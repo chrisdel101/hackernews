@@ -26,9 +26,35 @@ function getStory(id) {
     let url = `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
     return fetch(url).then(blob => blob.json()).then(json => json)
 }
+function fetchData(url){
+    let arr = []
+    return new Promise((resolve, reject) => {
+        getTopIDs(url).then(array => {
+            array.map((id, index) => {
+                return id
+            }).map((id, index) => {
+                getStory(id).then(obj => {
+                    arr.push(obj)
+                }).catch(e => console.error(e))
+            })
+        })
+        setTimeout(function(){
+            resolve(arr)
+        },1000)
+    })
+    // .then(res => {
+    //     console.log('res', res)
+    //     return res
+    // })
+    //     .catch(e => {
+    //     console.error(`An error: ${e}`)
+    // })
+}
+
 // console.log(getAPI('https://hacker-news.firebaseio.com/v0 / newstories.json?print = pretty'))
 module.exports = {
     elementsRandomColor: elementsRandomColor,
     getTopIDs: getTopIDs,
-    getStory:getStory
+    getStory:getStory,
+    fetchData: fetchData
 }

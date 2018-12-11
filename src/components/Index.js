@@ -5,7 +5,7 @@ import data from '../data/post_data.json'
 import utils from "../utils"
 
 // import getJSON from "../utils"
-class Page extends Component {
+class Index extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -13,14 +13,50 @@ class Page extends Component {
 			done: false
 		}
 	}
+	// get array of ids
+	getTopIDs(url) {
+		return fetch(url).then(blob => blob.json()).then(json => json)
+	}
+	// returns a promise resolves to an object
+	getStory(id) {
+		let url = `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
+		return fetch(url).then(blob => blob.json()).then(json => json)
+	}
 	// returns a promise with object
 	componentDidMount() {
-        this.props.data.then(result => {
-            this.setState({
-                data: result
-            })
-            console.log(this.state)
-        })
+		let arr = []
+		new Promise((resolve, reject) => {
+			this.getTopIDs("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty").then(array => {
+				console.log(array)
+				array.map((id, index) => {
+					return id
+				}).map((id, index) => {
+					this.getStory(id).then(obj => {
+						arr.push(obj)
+					}).catch(e => console.error(e))
+					// console.log('in')
+				})
+				setTimeout(function() {
+					resolve(arr)
+				}, 2000)
+
+			})
+		}).then(i => {
+			return this.setState({data: i})
+		})
+		// this.setState({data: arr})
+		// this.state.data.forEach((each, i) => {
+		// 	console.log(each)
+		// })
+		// console.log(this.state.data[0])
+		// for (var i in this.state.data) {
+		// 	for (var j in this.state.data[i]) {
+		// 		console.log(j)
+		// 	}
+		// }
+			.catch(e => {
+			console.error(`An error: ${e}`)
+		})
 	}
     change() {
         let tds = document.querySelectorAll('td')
@@ -90,4 +126,4 @@ class Page extends Component {
 		</div>);
 	}
 }
-export default Page;
+export default Index
