@@ -12,26 +12,18 @@ class Page extends Component {
 			data: [],
 			done: false
 		}
-	}
-	// get array of ids
-	getTopIDs(url) {
-		return fetch(url).then(blob => blob.json()).then(json => json)
-	}
-	// returns a promise resolves to an object
-	getStory(id) {
-		let url = `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
-		return fetch(url).then(blob => blob.json()).then(json => json)
+        console.log(utils)
 	}
 	// returns a promise with object
 	componentDidMount() {
 		let arr = []
 		new Promise((resolve, reject) => {
-			this.getTopIDs("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty").then(array => {
+			utils.getTopIDs("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty").then(array => {
 				console.log(array)
 				array.map((id, index) => {
 					return id
 				}).map((id, index) => {
-					this.getStory(id).then(obj => {
+					utils.getStory(id).then(obj => {
 						arr.push(obj)
 					}).catch(e => console.error(e))
 					// console.log('in')

@@ -17,7 +17,18 @@ function elementsRandomColor(elementsArray){
     })
 
 }
+// get array of ids
+function getTopIDs(url) {
+    return fetch(url).then(blob => blob.json()).then(json => json)
+}
+// returns a promise resolves to an object
+function getStory(id) {
+    let url = `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
+    return fetch(url).then(blob => blob.json()).then(json => json)
+}
 // console.log(getAPI('https://hacker-news.firebaseio.com/v0 / newstories.json?print = pretty'))
 module.exports = {
-    elementsRandomColor: elementsRandomColor
+    elementsRandomColor: elementsRandomColor,
+    getTopIDs: getTopIDs,
+    getStory:getStory
 }
