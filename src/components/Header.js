@@ -3,12 +3,14 @@ import React from 'react'
 function Header(props) {
 	return (<div className="Header">
         <div className="header-cell logo">
-            <a href="https://news.ycombinator.com">
+            <a href="/">
                 <img src="https://news.ycombinator.com/y18.gif"/>
             </a>
         </div>
 		<div className="header-cell app-name">
-            <strong>{props.Appname}</strong>
+            <a href="/">
+                <strong>{props.Appname}</strong>
+            </a>
         </div>
 		<div className="header-cell login">
         <a href="#">login</a>

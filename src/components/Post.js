@@ -74,8 +74,7 @@ function Post(props) {
 		return hostname
     }
 	return props.data.map((post, index) => {
-        console.log(post.time)
-        console.log(post.by)
+        
         return (
             <div className="Post" key={index}>
     			<div className="rank">

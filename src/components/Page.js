@@ -21,19 +21,13 @@ class Page extends Component {
             })
             console.log(this.state)
         })
+        .catch(e => console.error(`error: ${e}`))
 	}
     // change() {
     //     let tds = document.querySelectorAll('td')
     //     utils.elementsRandomColor(tds)
     // }
 	render() {
-		let answer;
-		// let that = this
-		if (this.state.data.length >= 1) {
-			answer = 'yes'
-		} else {
-			answer = 'no'
-		}
 		return (
 		<div className="Page">
             <div className="page-inner-container">

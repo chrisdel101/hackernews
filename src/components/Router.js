@@ -20,19 +20,9 @@ import utils from '../utils'
 //         component: Page,
 //         fetchData: utils.fetchData("https://hacker-news.firebaseio.com/v0/showstories.json?print=pretty")
 //     }
-
+//
 // ]
-function one(){
-    console.log('one')
-}
-function two(){
-    console.log('two')
 
-}
-function three(){
-    console.log('three')
-
-}
 function Router(){
     {/*
         <BrowserRouter>
@@ -46,9 +36,12 @@ function Router(){
     return(
         <BrowserRouter>
         <div>
-        <Route exact path="/" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")} />}/>
-        <Route path="/newest" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty")} />}/>
-        <Route path="/best" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/beststories.json?print=pretty")} />}/>
+            <Route exact path="/" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")} />}/>
+            <Route path="/newest" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty")} />}/>
+            <Route path="/show" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/showstories.json?print=pretty")} />}/>
+            <Route path="/ask" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/askstories.json?print=pretty")} />}/>
+            <Route path="/jobs" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/jobstories.json?print=pretty")} />}/>
+            <Route path="/best" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/beststories.json?print=pretty")} />}/>
         </div>
         </BrowserRouter>
     )

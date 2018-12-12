@@ -52,10 +52,38 @@ function fetchData(url){
     // })
 }
 
-// console.log(getAPI('https://hacker-news.firebaseio.com/v0 / newstories.json?print = pretty'))
+
+// get max id and 100 previous
+function walkBackComments(){
+    return getAPI("https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty")
+    .then(maxNum => {
+        let top100 = []
+        let i = 0
+        while(i < 100){
+            let num = maxNum - i
+            top100.push(num)
+            i++
+        }
+        let objs = top100.map(id => {
+            return getStory(id)
+            .then(obj => {
+                if(obj.type === 'comment'){
+                    return obj
+                }
+            })
+        })
+        return objs
+    })
+}
+walkBackComments().then(arr => {
+    arr.forEach(i => {
+        i.then(j => console.log(j))
+    })
+})
 module.exports = {
     elementsRandomColor: elementsRandomColor,
     getTopIDs: getTopIDs,
     getStory:getStory,
-    fetchData: fetchData
+    fetchData: fetchData,
+    walkBackComments: walkBackComments
 }

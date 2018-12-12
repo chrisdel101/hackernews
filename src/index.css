@@ -138,6 +138,7 @@ body {
 .app-name strong {
 	float: left;
 	padding-top: 2px;
+	color: black;
 }
 
 .login {
