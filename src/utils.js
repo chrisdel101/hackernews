@@ -27,6 +27,7 @@ function getStory(id) {
     return fetch(url).then(blob => blob.json()).then(json => json)
 }
 function fetchData(url){
+    console.log(url)
     let arr = []
     return new Promise((resolve, reject) => {
         getTopIDs(url).then(array => {
@@ -40,7 +41,7 @@ function fetchData(url){
         })
         setTimeout(function(){
             resolve(arr)
-        },1000)
+        },2000)
     })
     // .then(res => {
     //     console.log('res', res)

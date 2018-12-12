@@ -50,7 +50,7 @@ class Page extends Component {
                             },
                             {
                                 link:"show",
-                                url: "/showstories"
+                                url: "/show"
                             },
                             {
                                 link:"ask",
