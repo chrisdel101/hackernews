@@ -22,10 +22,10 @@ class Page extends Component {
             console.log(this.state)
         })
 	}
-    change() {
-        let tds = document.querySelectorAll('td')
-        utils.elementsRandomColor(tds)
-    }
+    // change() {
+    //     let tds = document.querySelectorAll('td')
+    //     utils.elementsRandomColor(tds)
+    // }
 	render() {
 		let answer;
 		// let that = this

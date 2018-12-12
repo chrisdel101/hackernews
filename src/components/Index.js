@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Post from "./Post";
 import Header from "./Header";
 import data from '../data/post_data.json'
-import utils from "../utils"
+// import utils from "../utils"
 
 // import getJSON from "../utils"
 class Index extends Component {
