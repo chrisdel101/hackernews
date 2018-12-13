@@ -15,7 +15,7 @@ class Page extends Component {
 	}
 	// returns a promise with object
 	componentDidMount() {
-        // if comments do this
+        // if COMMENTS do this
         if(window.location.pathname === '/comments'){
             console.log('comments')
             this.props.data.then(promisesArr => {
@@ -28,8 +28,10 @@ class Page extends Component {
                 this.setState({
                     data: newArr
                 })
+                console.log(this.state)
             })
             .catch(e => console.error(`error: ${e}`))
+            // for not comment routes do this
         } else {
             console.log('not comments')
                 this.props.data.then(result => {
