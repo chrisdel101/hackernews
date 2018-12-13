@@ -1,10 +1,14 @@
 import React from 'react'
+import utils from '../utils'
+
 
 function PostMarkup(props){
+    console.log('props', props)
     let post = props.post.post
     let index = props.post.index
-    let hostURL = props.post.hostURLFunc
-    let getDiff = props.post.getDiffFunc
+    let hostURL = props.post.hostURL
+    let getDiff = props.post.getDiff
+    let commentsLink = props.post.commentsLink
     return (
     <div className="Post" key={index}>
         <div className="rank">
@@ -42,4 +46,4 @@ function PostMarkup(props){
         </div>
     </div>)
 }
-export default       PostMarkup
+export default  PostMarkup

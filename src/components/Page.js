@@ -12,6 +12,7 @@ class Page extends Component {
 			data: [],
 			done: false
 		}
+        console.log('page', props)
 	}
 	// returns a promise with object
 	componentDidMount() {
@@ -88,15 +89,7 @@ class Page extends Component {
     			{
     				this.state.data.length
     					?
-
-    								// this.state.data.map((each, i) => {
-    								// 	return <Post key={i} data={each.by}/>
-    								// })
-    								// {
-    								// console.log(this.state.data)
-    								// }return
-    								<Post data={this.state.data}/>
-
+    						<Post data={this.state.data}/>
 
     					: <div>Fetching API data
     						</div>

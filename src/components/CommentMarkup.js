@@ -1,9 +1,12 @@
 import React from 'react'
+import utils from '../utils'
 
 function CommentMarkup(props){
     console.log('props', props)
     let post = props.post.post
     let index = props.post.index
+    let hostURL = props.post.hostURL
+    let getDiff = props.post.getDiff
     return (
     <div className="Post" key={index}>
             <div className="rank">
