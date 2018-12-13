@@ -67,19 +67,22 @@ function walkBackComments(){
         let objs = top100.map(id => {
             return getStory(id)
             .then(obj => {
-                if(obj.type === 'comment'){
-                    return obj
+                // reject nulls
+                if(obj){
+                    if(obj.type === 'comment'){
+                        return obj
+                    }
                 }
             })
         })
         return objs
     })
 }
-walkBackComments().then(arr => {
-    arr.forEach(i => {
-        i.then(j => console.log(j))
-    })
-})
+// walkBackComments().then(arr => {
+//     arr.forEach(i => {
+//         i.then(j => console.log(j))
+//     })
+// })
 module.exports = {
     elementsRandomColor: elementsRandomColor,
     getTopIDs: getTopIDs,

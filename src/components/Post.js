@@ -62,8 +62,9 @@ function Post(props) {
             return `${post.kids.length} comments`
         }
     }
-    // if no url, return null in ternary
+    // get hostname in url - used to attach link to website
     function hostURL(url){
+        // if no url, return null in ternary
         if(!url){
             console.log('NO URL')
             return ''        }
@@ -73,45 +74,90 @@ function Post(props) {
         hostname = hostname.replace(/^(www\.)/,"");
 		return hostname
     }
-	return props.data.map((post, index) => {
-        
+    function PostMarkup(props){
+        let post = props.post.post
+        let index = props.post.index
         return (
-            <div className="Post" key={index}>
-    			<div className="rank">
-    				<span>{index+1}.</span>
-    			</div>
-    			<div className="vote">
-    				<span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
-    			</div>
-                <div className="text-container">
-        			<div className="title">
-        				<a className="Post-link" href={post.url} target="_blank" rel="noopener noreferrer">
-        					{post.title}
-        				</a>
-                        <a id="host-url" href={`http://${hostURL(post.url)}`} target="_blank" rel="noopener noreferrer">
-                        &nbsp;{!hostURL(post.url) ? null : `(${hostURL(post.url)})` }
-                        </a>
-        			</div>
-                    <div className="subtext">
-        				<span className="score">{post.score}
-        					points by {''}
-        					<a href={`https://news.ycombinator.com/user?id=${post.by}`}>{''}{post.by}</a>
-        				</span>
-        				<span className="age">
-        					{''}
-        					<a href={`https://news.ycombinator.com/item?id=${post.id}`}>&nbsp;{getDiff(post.time)}</a>
-        				</span>
-        				<span className="hide">
-        					{''}
-        					<a href={'#'}>&nbsp;hide</a>
-        				</span>
-        				<span className="comment">
-        					<a href={`https://news.ycombinator.com/item?id=${post.id}`}>&nbsp;{commentsLink(post)}</a>
-        				</span>
-        			</div>
-                </div>
-
-		</div>)
+        <div className="Post" key={index}>
+            <div className="rank">
+            <span>{index+1}.</span>
+        </div>
+        <div className="vote">
+            <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
+        </div>
+        <div className="text-container">
+            <div className="title">
+                <a className="Post-link" href={post.url} target="_blank" rel="noopener noreferrer">
+                    {post.title}
+                </a>
+                <a id="host-url" href={`http://${hostURL(post.url)}`} target="_blank" rel="noopener noreferrer">
+                &nbsp;{!hostURL(post.url) ? null : `(${hostURL(post.url)})` }
+                </a>
+            </div>
+            <div className="subtext">
+                <span className="score">{post.score}
+                    points by {''}
+                    <a href={`https://news.ycombinator.com/user?id=${post.by}`}>{''}{post.by}</a>
+                </span>
+                <span className="age">
+                    {''}
+                    <a href={`https://news.ycombinator.com/item?id=${post.id}`}>&nbsp;{getDiff(post.time)}</a>
+                </span>
+                <span className="hide">
+                    {''}
+                    <a href={'#'}>&nbsp;hide</a>
+                </span>
+                <span className="comment">
+                    <a href={`https://news.ycombinator.com/item?id=${post.id}`}>&nbsp;{commentsLink(post)}</a>
+                </span>
+            </div>
+            </div>
+        </div>)
+    }
+    function CommentMarkup(props){
+        let post = props.post.post
+        let index = props.post.index
+        return (
+        <div className="Post" key={index}>
+            <div className="rank">
+            <span>{index+1}.</span>
+        </div>
+        <div className="vote">
+            <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
+        </div>
+        <div className="text-container">
+            <div className="title">
+                <a className="Post-link" href={post.url} target="_blank" rel="noopener noreferrer">
+                    {post.title}
+                </a>
+                <a id="host-url" href={`http://${hostURL(post.url)}`} target="_blank" rel="noopener noreferrer">
+                &nbsp;{!hostURL(post.url) ? null : `(${hostURL(post.url)})` }
+                </a>
+            </div>
+            <div className="subtext">
+                <span className="score">{post.score}
+                    points by {''}
+                    <a href={`https://news.ycombinator.com/user?id=${post.by}`}>{''}{post.by}</a>
+                </span>
+                <span className="age">
+                    {''}
+                    <a href={`https://news.ycombinator.com/item?id=${post.id}`}>&nbsp;{getDiff(post.time)}</a>
+                </span>
+                <span className="hide">
+                    {''}
+                    <a href={'#'}>&nbsp;hide</a>
+                </span>
+                <span className="comment">
+                    <a href={`https://news.ycombinator.com/item?id=${post.id}`}>&nbsp;{commentsLink(post)}</a>
+                </span>
+            </div>
+            </div>
+        </div>)
+    }
+	return props.data.map((post, index) => {
+        return (
+            <PostMarkup post={ {post: post, index:index} }/>
+        )
 	})
 
 }

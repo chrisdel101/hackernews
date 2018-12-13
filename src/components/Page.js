@@ -15,13 +15,32 @@ class Page extends Component {
 	}
 	// returns a promise with object
 	componentDidMount() {
-        this.props.data.then(result => {
-            this.setState({
-                data: result
+        // if comments do this
+        if(window.location.pathname === '/comments'){
+            console.log('comments')
+            this.props.data.then(promisesArr => {
+                let newArr = []
+                promisesArr.forEach(res => {
+                    res.then(comment => {
+                        newArr.push(comment)
+                    })
+                })
+                this.setState({
+                    data: newArr
+                })
             })
-            console.log(this.state)
-        })
-        .catch(e => console.error(`error: ${e}`))
+            .catch(e => console.error(`error: ${e}`))
+        } else {
+            console.log('not comments')
+                this.props.data.then(result => {
+                    this.setState({
+                            data: result
+                        })
+                        console.log(this.state)
+                    })
+                    .catch(e => console.error(`error: ${e}`))
+        }
+
 	}
     // change() {
     //     let tds = document.querySelectorAll('td')
@@ -40,7 +59,7 @@ class Page extends Component {
                             },
                             {
                                 link:"comments",
-                                url: "https://news.ycombinator.com/newcomments"
+                                url: "/comments"
                             },
                             {
                                 link:"show",
