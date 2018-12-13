@@ -12,7 +12,6 @@ class Page extends Component {
 			data: [],
 			done: false
 		}
-        console.log('page', props)
 	}
 	// returns a promise with object
 	componentDidMount() {
@@ -84,15 +83,14 @@ class Page extends Component {
                     }/>
         		</div>
             </div>
-
+            {console.log(this.state.data)}
     		<div className="body-container">
     			{
     				this.state.data.length
     					?
     						<Post data={this.state.data}/>
 
-    					: <div>Fetching API data
-    						</div>
+    					: console.log('null')
     			}
                 </div>
 		</div>);

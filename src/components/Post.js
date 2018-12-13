@@ -27,7 +27,6 @@ function Post(props) {
 	return props.data.map((post, index) => {
         {console.log('post', post)}
         return (
-
                 !checkRoute()  ? <PostMarkup post={ {
                             post: post,
                             index:index,

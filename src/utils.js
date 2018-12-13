@@ -75,7 +75,7 @@ function walkBackComments(){
                 }
             })
         })
-        console.log('objs')
+        console.log('routing return')
         return objs
     })
 }
