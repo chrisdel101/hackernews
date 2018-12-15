@@ -44,6 +44,17 @@ class Page extends Component {
         }
 
 	}
+    // render piece of text on show page
+    ShowPageText(){
+        if(window.location.pathname === "/show"){
+            return(
+                <div>
+            Please read the <a href="https://news.ycombinator.com/showhn.html">rules.</a> You can also browse the <a href="/shownew">newest</a> Show HNs.
+            </div>)
+        } else {
+            return null
+        }
+    }
     // change() {
     //     let tds = document.querySelectorAll('td')
     //     utils.elementsRandomColor(tds)
@@ -88,8 +99,10 @@ class Page extends Component {
     			{
     				this.state.data.length
     					?
+                        <div>
+                            <this.ShowPageText />
     						<Post data={this.state.data}/>
-
+                        </div>
     					: <div>Fetching API Data</div>
     			}
                 </div>
