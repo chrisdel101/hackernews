@@ -90,7 +90,7 @@ class Page extends Component {
     					?
     						<Post data={this.state.data}/>
 
-    					: console.log('null')
+    					: <div>Fetching API Data</div>
     			}
                 </div>
 		</div>);

@@ -3,8 +3,8 @@ import utils from '../utils'
 
 
 function PostMarkup(props){
-    console.log('props', props)
     let post = props.post.post
+    console.log('props', props)
     let index = props.post.index
     let hostURL = props.post.hostURL
     let getDiff = props.post.getDiff
@@ -15,7 +15,9 @@ function PostMarkup(props){
         <span>{index+1}.</span>
     </div>
     <div className="vote">
+        <a href={`https://news.ycombinator.com/vote?id=${post.id}&how=up&goto=news`}>
         <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
+        </a>
     </div>
     <div className="text-container">
         <div className="title">
