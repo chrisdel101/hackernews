@@ -12,14 +12,15 @@ class Page extends Component {
 			data: [],
 			comments: ""
 		};
+        let that = this
 	}
 	// returns a promise with object
 	componentDidMount() {
 		// if COMMENTS do this
 		const that = this;
-		if (window.location.pathname === "/comments") {
+        // check if comments route
+		if (utils.checkRoute()) {
 			console.log("comments");
-
 			function getData() {
 				fetch("https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty")
 					.then(blob => blob.json())
@@ -112,6 +113,37 @@ class Page extends Component {
 			return null;
 		}
 	}
+    renderContent(){
+        // if comments Page
+        if(utils.checkRoute()){
+            if(utils.checkLoaded(this.state.comments)){
+                return(<div>
+                    <this.ShowPageText />
+                    {console.log('Render - Comment')}{" "}
+                    <Post data={this.state.comments} />{" "}
+                    </div>
+                )
+            } else {
+                return(
+                        <div> Fetching Comments API Data </div>
+                    )
+            }
+        } else {
+            if(utils.checkLoaded(this.state.data)){
+                return(<div>
+                    <this.ShowPageText />
+                    {console.log('Render - Data')}{" "}
+                    <Post data={this.state.data} />{" "}
+                    </div>
+                )
+            } else {
+                return(
+                    <div> Fetching Data API Data </div>
+                )
+            }
+
+        }
+    }
 	// change() {
 	//     let tds = document.querySelectorAll('td')
 	//     utils.elementsRandomColor(tds)
@@ -155,16 +187,9 @@ class Page extends Component {
 				{console.log('state',this.state.data)}{" "}
 				<div className="body-container">
 					{" "}
-					{this.state.data.length ? (
-						<div>
-							<this.ShowPageText />
-                            {console.log('Post')}{" "}
-							<Post data={this.state.data} />{" "}
-						</div>
-					) : (
-						<div> Fetching API Data </div>
-					)}{" "}
+                    {this.renderContent()}
 				</div>{" "}
+
 			</div>
 		);
 	}

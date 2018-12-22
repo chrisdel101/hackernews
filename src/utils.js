@@ -54,7 +54,11 @@ function fetchData(url) {
 	// })
 }
 
-
+function checkRoute(){
+    let pathname = window.location.pathname
+    console.log(pathname === "/comments" ? true : false)
+    return (pathname === "/comments" ? true : false)
+}
 // get max id and 100 previous
 function walkBackComments() {
 	return getAPI("https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty")
@@ -150,6 +154,10 @@ function hostURL(url) {
 	hostname = hostname.replace(/^(www\.)/, "");
 	return hostname
 }
+// check if array has length inisde render
+function checkLoaded(arr){
+    return arr.length ? true : false
+}
 module.exports = {
 	getDiff: getDiff,
 	elementsRandomColor: elementsRandomColor,
@@ -158,5 +166,7 @@ module.exports = {
 	fetchData: fetchData,
 	walkBackComments: walkBackComments,
 	hostURL: hostURL,
-	commentsLink: commentsLink
+	commentsLink: commentsLink,
+    checkRoute: checkRoute,
+    checkLoaded: checkLoaded
 }

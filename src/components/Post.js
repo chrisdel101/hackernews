@@ -19,33 +19,54 @@ function Post(props) {
             return
         }
     }
-    function checkRoute(){
-        let pathname = window.location.pathname
-        console.log(pathname === "/comments" ? true : false)
-        return (pathname === "/comments" ? true : false)
-
+    function check(){
+        console.log('return null')
+        return null
     }
-	return props.data.map((post, index) => {
-        {console.log('post', post)}
-        return (
-                !checkRoute()  ? <PostMarkup key={index} post={
-                    {
-                            post: post,
-                            index:index,
-                            hostURL: utils.hostURL,
-                            getDiff: utils.getDiff,
-                            commentsLink: utils.commentsLink
-                    }  }/> :
-                            // {console.log}
-                        <CommentMarkup key={index}  post={ {
-                           post: post,
-                           index:index,
+	return props.data.map((post, outerIndex) => {
+        // arr.map(post => {
+            return Array.isArray(post) ? post.map((item, innerIndex) => {
+                   return (!utils.checkRoute()  ? <PostMarkup key={innerIndex} post={
+                       {
+                           post: item,
+                           index:innerIndex,
+                           hostURL: utils.hostURL,
+                           getDiff: utils.getDiff,
+                           commentsLink: utils.commentsLink
+                       }  }/> :
+                       // {console.log}
+                       <CommentMarkup key={innerIndex}  post={ {
+                           post: item,
+                           index:innerIndex,
                            hostURL: utils.hostURL,
                            getDiff: utils.getDiff,
                            commentsLink: utils.commentsLink
                        } }/>
 
-        )
+                   )
+            })
+            :
+             (
+                !utils.checkRoute()  ? <PostMarkup key={outerIndex} post={
+                    {
+                        post: post,
+                        index:outerIndex,
+                        hostURL: utils.hostURL,
+                        getDiff: utils.getDiff,
+                        commentsLink: utils.commentsLink
+                    }  }/> :
+                    // {console.log}
+                    <CommentMarkup key={outerIndex}  post={ {
+                        post: post,
+                        index:outerIndex,
+                        hostURL: utils.hostURL,
+                        getDiff: utils.getDiff,
+                        commentsLink: utils.commentsLink
+                    } }/>
+
+                )
+
+        // })
 	})
 
 }
