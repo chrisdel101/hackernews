@@ -2,7 +2,7 @@ import React from 'react'
 import utils from '../utils'
 
 function CommentMarkup(props){
-    // console.log('props', props)
+    console.log('comment props', props)
     let post = props.post.post
     let index = props.post.index
     let hostURL = props.post.hostURL

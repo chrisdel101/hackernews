@@ -3,6 +3,7 @@ import PostMarkup from "./PostMarkup"
 import CommentMarkup from "./CommentMarkup"
 import utils from '../utils'
 
+// Post takes an array
 function Post(props) {
     console.log('p', props)
     // need routing
@@ -27,13 +28,16 @@ function Post(props) {
 	return props.data.map((post, index) => {
         {console.log('post', post)}
         return (
-                !checkRoute()  ? <PostMarkup post={ {
+                !checkRoute()  ? <PostMarkup key={index} post={
+                    {
                             post: post,
                             index:index,
                             hostURL: utils.hostURL,
                             getDiff: utils.getDiff,
-                            commentsLink: utils.commentsLink} }/> :
-                        <CommentMarkup post={ {
+                            commentsLink: utils.commentsLink
+                    }  }/> :
+                            // {console.log}
+                        <CommentMarkup key={index}  post={ {
                            post: post,
                            index:index,
                            hostURL: utils.hostURL,
