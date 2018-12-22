@@ -5,14 +5,14 @@ class CommentMarkup extends Component {
     constructor(props) {
 		super(props);
 		this.state = {
-			data: ""
+			original: ""
 		};
         let that = this
         this.post = props.post.post
         this.index = props.post.index
         this.hostURL = props.post.hostURL
         this.getDiff = props.post.getDiff
-        console.log('props', this.props )
+        // console.log('props', this.props )
 	}
 
     findOriginal(parentID){
@@ -23,8 +23,11 @@ class CommentMarkup extends Component {
             // console.log('item', item)
             // if parent is story done
             if(item.type === 'story'){
-                console.log('done')
-                return 'some'
+                this.setState({
+                    original: item
+                })
+                // console.log('state', this.state)
+                return
             } else {
                 // call again with new parent val
                 // return 'none'
@@ -36,7 +39,7 @@ class CommentMarkup extends Component {
 
     }
     componentDidMount(){
-        // this.findOriginal(this.post.parent)
+        this.findOriginal(this.post.parent)
     }
     // let origin = findOriginal(post.parent)
     // // setTimeout(function(){
@@ -47,7 +50,6 @@ class CommentMarkup extends Component {
         //     console.log('nothing')
         //     return
         // }
-        console.log(this.post)
         return (
             <div className={`Post ${utils.checkRoute() ? 'comment' : ''}`}>
             <div className="subtext">
@@ -64,7 +66,7 @@ class CommentMarkup extends Component {
             </span>
             <span className="orignal-post">
             {''}
-            <a href={`https://news.ycombinator.com/item?id=${this.post.parent}`}>original story</a>
+            <a href={this.state.original.url}>{this.state.original.title}</a>
 
             </span>
             <div className="by">

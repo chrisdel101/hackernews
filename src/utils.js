@@ -56,7 +56,6 @@ function fetchData(url) {
 
 function checkRoute(){
     let pathname = window.location.pathname
-    console.log(pathname === "/comments" ? true : false)
     return (pathname === "/comments" ? true : false)
 }
 // get max id and 100 previous
@@ -160,7 +159,7 @@ function checkLoaded(arr){
 }
 // take a promise and unpacks it
 function handlePromises(promise){
-    
+
 }
 module.exports = {
     getAPI: getAPI,
