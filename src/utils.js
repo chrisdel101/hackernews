@@ -158,7 +158,12 @@ function hostURL(url) {
 function checkLoaded(arr){
     return arr.length ? true : false
 }
+// take a promise and unpacks it
+function handlePromises(promise){
+    
+}
 module.exports = {
+    getAPI: getAPI,
 	getDiff: getDiff,
 	elementsRandomColor: elementsRandomColor,
 	getTopIDs: getTopIDs,

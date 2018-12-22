@@ -22,9 +22,9 @@ class Page extends Component {
 		if (utils.checkRoute()) {
 			console.log("comments");
 			function getData() {
-				fetch("https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty")
-					.then(blob => blob.json())
-					.then(json => json)
+				utils.getAPI("https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty")
+					// .then(blob => blob.json())
+					// .then(json => json)
 					.then(maxNum => {
 						//	 insert ids into URL - get array of promises
 						Promise.all(
@@ -51,17 +51,7 @@ class Page extends Component {
 								comments: [...prevState.comments, comments]
 							}))
 						})
-						// let arr = comments.filter(obj => {
-						// 	return obj
-						// })
-						// console.log('comments', comments)
-						// // this.setState({
-						// // 	comments: arr
-						// // })
-						// that.setState(prevState => ({
-						// 	comments: [...prevState.arr, arr]
-						// }))
-					});
+					})
 				//set the array to state
 				// })
 			}
@@ -184,7 +174,6 @@ class Page extends Component {
 						/>{" "}
 					</div>{" "}
 				</div>{" "}
-				{console.log('state',this.state.data)}{" "}
 				<div className="body-container">
 					{" "}
                     {this.renderContent()}

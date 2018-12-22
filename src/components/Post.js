@@ -24,9 +24,10 @@ function Post(props) {
         return null
     }
 	return props.data.map((post, outerIndex) => {
-        // arr.map(post => {
+        // if post is still an array, loop again
             return Array.isArray(post) ? post.map((item, innerIndex) => {
-                   return (!utils.checkRoute()  ? <PostMarkup key={innerIndex} post={
+                   return (!utils.checkRoute()  ?
+                   <PostMarkup key={innerIndex} post={
                        {
                            post: item,
                            index:innerIndex,
@@ -34,7 +35,6 @@ function Post(props) {
                            getDiff: utils.getDiff,
                            commentsLink: utils.commentsLink
                        }  }/> :
-                       // {console.log}
                        <CommentMarkup key={innerIndex}  post={ {
                            post: item,
                            index:innerIndex,
@@ -65,8 +65,6 @@ function Post(props) {
                     } }/>
 
                 )
-
-        // })
 	})
 
 }
