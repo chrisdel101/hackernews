@@ -103,6 +103,7 @@ class Page extends Component {
 			return null;
 		}
 	}
+    // check which markup to render- run inside render func
     renderContent(){
         // if comments Page
         if(utils.checkRoute()){

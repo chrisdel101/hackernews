@@ -1,5 +1,7 @@
 import React, {Component} from "react"
 import utils from '../utils'
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+
 
 class CommentMarkup extends Component {
     constructor(props) {
@@ -45,38 +47,56 @@ class CommentMarkup extends Component {
     // // setTimeout(function(){
     //     console.log('origin', origin)
     // // },5000)
+    slicer(str){
+        if(!str){
+            return false
+        }
+        if(str.length >= 30){
+            return str.slice(0,30)
+        } else {
+            return str
+        }
+
+
+    }
+
     render(){
         // if(!this.post){
         //     console.log('nothing')
         //     return
         // }
+        let originalPost = this.state.original.title
+
         return (
             <div className={`Post ${utils.checkRoute() ? 'comment' : ''}`}>
-            <div className="subtext">
-            <div className="vote">
-            <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
-            </div>
-            <span className="age">
-            {''}
-            <a href={`https://news.ycombinator.com/item?id=${this.post.id}`}>&nbsp;{this.getDiff(this.post.time)}</a>
-            </span>
-            <span className="parent">
-            {''}
-            <a href={`https://news.ycombinator.com/item?id=${this.post.parent}`}>parent</a>
-            </span>
-            <span className="orignal-post">
-            {''}
-            <a href={this.state.original.url}>{this.state.original.title}</a>
+            
+            <div className="subtext post-child">
+                <div className="vote">
+                    <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
+                </div>
+                <div className="by">
+                    {this.post.by}
+                </div>
+                <span className="age">
+                {''}
+                    <a href={`https://news.ycombinator.com/item?id=${this.post.id}`}>&nbsp;{this.getDiff(this.post.time)}</a>
+                </span>
+                <span className="parent">
+                {''}
+                    <a href={`https://news.ycombinator.com/item?id=${this.post.parent}`}>&nbsp;parent</a>
+                </span>
+                {''}
+                <span className="orignal-post">
+                {''}
+                <a href={this.state.original.url}>&nbsp;on: {this.slicer(this.state.original.title)}</a>
 
-            </span>
-            <div className="by">
-            {this.post.by}
-            </div>
+                </span>
+
 
             </div>
-            <div className="text-container">
+            <div className="text-container post-child">
             <div className="title">
-            {this.post.text}
+            {ReactHtmlParser(this.post.text)}
             </div>
             </div>
             </div>)
