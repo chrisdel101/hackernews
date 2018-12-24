@@ -55,12 +55,17 @@ body {
 
 .Post.comment>.subtext {
 	display: inline-flex;
-	border: 1px red solid;
+	font-size: 8pt;
+	padding: 5px 0;
 }
 
 .Post.comment>.text-container {
 	display: inline-flex;
-	border: 1px solid black;
+	padding-left: 1.3em;
+}
+
+.Post.comment>.subtext>.vote img {
+	bottom: 0;
 }
 
 .Post.comment {
@@ -114,7 +119,6 @@ body {
 
 .title {
 	text-align: left;
-	max-width: 36em;
 }
 
 .title a:link {
@@ -192,6 +196,15 @@ body {
 		min-height: 24px
 	}
 
+	.subtext {
+		padding-top: 4px;
+		font-size: 7pt;
+	}
+
+	.Post.comment>.text-container {
+		padding-left: 1.0em
+	}
+
 	.app-name {
 		font-size: 13px;
 		margin-left: 5px;
@@ -234,8 +247,12 @@ body {
 		font-size: 10pt;
 	}
 
+	.Post.comment>.text-container>.title {
+		font-size: 9pt;
+	}
+
 	#host-url {
-		font-size: 10px;
+		font-size: 11px;
 	}
 }
 
@@ -255,6 +272,10 @@ body {
 @media (min-width: 615px) and (max-width:768px) {
 	.app-name, .header-links {
 		right: 32px;
+	}
+
+	.title {
+		max-width: 540px !important;
 	}
 }
 
@@ -283,10 +304,17 @@ body {
 	.title {
 		font-size: 11pt;
 		line-height: 14pt;
+		max-width: 350px;
+	}
+
+	.Post.comment>.text-container>.title {
+		font-size: 10pt;
+		line-height: inherit;
 	}
 
 	.subtext {
-		font-size: 12px;
+		font-size: 9pt;
+		padding-top: 3px;
 	}
 
 	.subtext a:link, .subtext a:visited {
