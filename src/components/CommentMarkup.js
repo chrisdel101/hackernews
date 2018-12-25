@@ -65,7 +65,7 @@ class CommentMarkup extends Component {
         let originalPost = this.state.original.title
 
         return (
-            <div className={`Post ${utils.checkRoute() ? 'comment' : ''}`}>
+            <div className={`Post ${utils.checkRoute('/comments') ? 'comment' : ''}`}>
 
             <div className="subtext post-child">
                 <div className="vote">

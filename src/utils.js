@@ -53,10 +53,10 @@ function fetchData(url) {
 	//     console.error(`An error: ${e}`)
 	// })
 }
-
-function checkRoute(){
+// check if this route
+function checkRoute(route){
     let pathname = window.location.pathname
-    return (pathname === "/comments" ? true : false)
+    return (pathname === route ? true : false)
 }
 // get max id and 100 previous
 function walkBackComments() {
@@ -155,11 +155,26 @@ function hostURL(url) {
 }
 // check if array has length inisde render
 function checkLoaded(arr){
-    return arr.length ? true : false
+    return !arr.length ? false : true
 }
-// take a promise and unpacks it
-function handlePromises(promise){
-
+function filterShowStories(){
+    getAPI(" https://hacker-news.firebaseio.com/v0/showstories.json?print=pretty")
+    .then(stories => {
+        Promise.all(
+            stories.map(id => {
+                // console.log(id)
+                return getStory(id).then(obj => {
+                    // reject nulls
+                    return obj
+                });
+                //push resolved promises into another array
+            })
+        ).then(stories => {
+            return stories = stories.sort((a, b) => {
+                return a.time - b.time
+            }).reverse()
+        })
+    })
 }
 module.exports = {
     getAPI: getAPI,
@@ -172,5 +187,6 @@ module.exports = {
 	hostURL: hostURL,
 	commentsLink: commentsLink,
     checkRoute: checkRoute,
-    checkLoaded: checkLoaded
+    checkLoaded: checkLoaded,
+    filterShowStories: filterShowStories
 }

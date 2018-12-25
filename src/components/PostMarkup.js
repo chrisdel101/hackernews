@@ -4,7 +4,7 @@ import utils from '../utils'
 
 function PostMarkup(props){
     let post = props.post.post
-    console.log('props', props)
+    console.log('props', props.post)
     let index = props.post.index
     let hostURL = props.post.hostURL
     let getDiff = props.post.getDiff
