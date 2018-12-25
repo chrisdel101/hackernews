@@ -10,12 +10,40 @@ class Page extends Component {
 		super(props);
 		this.state = {
 			data: [],
-			comments: ""
-		};
-        let that = this
-	}
-	// returns a promise with object
+			comments: "",
+            links: [
+                {
+                    link: "new",
+                    url: "/newest"
+                },
+                {
+                    link: "comments",
+                    url: "/comments"
+                },
+                {
+                    link: "show",
+                    url: "/show"
+                },
+                {
+                    link: "ask",
+                    url: "/ask"
+                },
+                {
+                    link: "jobs",
+                    url: "/jobs"
+                },
+                {
+                    link: "submit",
+                    url: "https://news.ycombinator.com/submit"
+                }
+            ]
+		}
+
+}
 	componentDidMount() {
+        this.colorLinks()
+
+
 		// if COMMENTS do this
 		const that = this;
         // check if comments route
@@ -55,7 +83,7 @@ class Page extends Component {
 				//set the array to state
 				// })
 			}
-			getData();
+			getData()
 			// this.props.data.then(promisesArr => {
 			//     let newArr = []
 			//     promisesArr.forEach(res => {
@@ -81,7 +109,13 @@ class Page extends Component {
 				})
 				.catch(e => console.error(`error: ${e}`));
 		}
+
 	}
+    colorLinks(){
+        let route = window.location.pathname
+        let elem = document.querySelector("a[href="+ "'" + route + "'" + "]")
+        elem.style.color = "#ffffff"
+    }
 	// render piece of text on show page
 	ShowPageText() {
 		if (window.location.pathname === "/show") {
@@ -107,6 +141,7 @@ class Page extends Component {
     renderContent(){
         // if comments Page
         if(utils.checkRoute()){
+            // if state is loaded
             if(utils.checkLoaded(this.state.comments)){
                 return(<div>
                     <this.ShowPageText />
@@ -141,37 +176,12 @@ class Page extends Component {
 	// }
 	render() {
 		return (
-			<div className="Page">
+			<div className="Page"    >
 				<div className="page-inner-container">
 					<div className="header-container">
 						<Header
 							Appname="Hacker News"
-							links={[
-								{
-									link: "new",
-									url: "/newest"
-								},
-								{
-									link: "comments",
-									url: "/comments"
-								},
-								{
-									link: "show",
-									url: "/show"
-								},
-								{
-									link: "ask",
-									url: "/ask"
-								},
-								{
-									link: "jobs",
-									url: "/jobs"
-								},
-								{
-									link: "submit",
-									url: "https://news.ycombinator.com/submit"
-								}
-							]}
+							links={this.state.links}
 						/>{" "}
 					</div>{" "}
 				</div>{" "}

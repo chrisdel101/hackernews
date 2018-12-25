@@ -108,6 +108,10 @@ body {
 	color: #000000;
 }
 
+.header-link.current-link a {
+	color: #ffffff;
+}
+
 /* exclude last one in list */
 .header-link:not(:nth-child(6)) {
 	border-right: black 1px solid;
