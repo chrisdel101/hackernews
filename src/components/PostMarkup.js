@@ -9,6 +9,15 @@ function PostMarkup(props){
     let hostURL = props.post.hostURL
     let getDiff = props.post.getDiff
     let commentsLink = props.post.commentsLink
+    // render this markup when func called'
+    function alternateMarkup(text, href){
+        return(
+            <span className={text}>
+                <a href={href}>&nbsp;{text}</a>
+            </span>
+
+        )
+    }
     return (
     <div className="Post" key={index}>
         <div className="rank">
@@ -37,10 +46,17 @@ function PostMarkup(props){
                 {''}
                 <a href={`https://news.ycombinator.com/item?id=${post.id}`}>&nbsp;{getDiff(post.time)}</a>
             </span>
-            <span className="hide">
-                {''}
-                <a href={'#'}>&nbsp;hide</a>
-            </span>
+            {
+                window.location.pathname === '/' || window.location.pathname === '/news' ?
+                alternateMarkup('hide',`https://news.ycombinator.com/hide?id=${post.id}&goto=newest` ) :
+                null
+            }
+            {
+                window.location.pathname === "/newest" ?
+                [alternateMarkup('hide',`https://news.ycombinator.com/hide?id=${post.id}&goto=newest` ),alternateMarkup('past'), alternateMarkup('web')]
+                    : null
+
+            }
             <span className="comment">
                 <a href={`https://news.ycombinator.com/item?id=${post.id}`}>&nbsp;{commentsLink(post)}</a>
             </span>

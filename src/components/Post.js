@@ -19,10 +19,6 @@ function Post(props) {
             return
         }
     }
-    function check(){
-        console.log('return null')
-        return null
-    }
 	return props.data.map((post, outerIndex) => {
         // if post is still an array, loop again
             return Array.isArray(post) ? post.map((item, innerIndex) => {

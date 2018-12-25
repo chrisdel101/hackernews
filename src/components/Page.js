@@ -39,65 +39,46 @@ class Page extends Component {
             ]
 		}
 
-}
+    }
+    // get top 100 comments and add to state
+     getData() {
+        utils.getAPI("https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty")
+        // .then(blob => blob.json())
+        // .then(json => json)
+        .then(maxNum => {
+            //	 insert ids into URL - get array of promises
+            Promise.all(
+                Array.from(
+                    {
+                        length: 100
+                    },
+                    (_, i) => maxNum - i
+                ).map(id => {
+                    // console.log(id)
+                    return utils.getStory(id).then(obj => {
+                        // reject nulls
+                        if (obj) {
+                            if (obj.type === "comment") {
+                                return obj;
+                            }
+                        }
+                    });
+                    //push resolved promises into another array
+                })
+            ).then(comments => {
+                comments = comments.filter(obj => obj)
+                this.setState(prevState => ({
+                    comments: [...prevState.comments, comments]
+                }))
+            })
+        })
+    }
 	componentDidMount() {
-        this.colorLinks()
-
-
-		// if COMMENTS do this
-		const that = this;
         // check if comments route
 		if (utils.checkRoute()) {
 			console.log("comments");
-			function getData() {
-				utils.getAPI("https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty")
-					// .then(blob => blob.json())
-					// .then(json => json)
-					.then(maxNum => {
-						//	 insert ids into URL - get array of promises
-						Promise.all(
-							Array.from(
-								{
-									length: 100
-								},
-								(_, i) => maxNum - i
-							).map(id => {
-								// console.log(id)
-								return utils.getStory(id).then(obj => {
-									// reject nulls
-									if (obj) {
-										if (obj.type === "comment") {
-											return obj;
-										}
-									}
-								});
-								//push resolved promises into another array
-							})
-						).then(comments => {
-							comments = comments.filter(obj => obj)
-							that.setState(prevState => ({
-								comments: [...prevState.comments, comments]
-							}))
-						})
-					})
-				//set the array to state
-				// })
-			}
-			getData()
-			// this.props.data.then(promisesArr => {
-			//     let newArr = []
-			//     promisesArr.forEach(res => {
-			//         res.then(comment => {
-			//             newArr.push(comment)
-			//         })
-			//     })
-			//     this.setState({
-			//         data: newArr
-			//     })
-			//     console.log(this.state)
-			// })
-			// .catch(e => console.error(`error: ${e}`))
-			// for not comment routes do this
+			this.getData()
+            // if not comments do this
 		} else {
 			console.log("not comments");
 			this.props.data
@@ -105,7 +86,6 @@ class Page extends Component {
 					this.setState({
 						data: result
 					});
-					console.log('state',this.state);
 				})
 				.catch(e => console.error(`error: ${e}`));
 		}
@@ -120,9 +100,9 @@ class Page extends Component {
 	ShowPageText() {
 		if (window.location.pathname === "/show") {
 			return (
-				<div>
+				<div className="show-added-text">
 					Please read the{" "}
-					<a href="https://news.ycombinator.com/showhn.html"> rules. </a> You can
+					<a href="https://news.ycombinator.com/showhn.html"> rules</a>. You can
 					also browse the{" "}
 					<a
 						href="/shownew

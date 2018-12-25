@@ -88,7 +88,7 @@ body {
 	padding-right: 5px;
 }
 
-.age, .hide {
+.age, .hide, .past, .web {
 	border-right: #828282 solid 1px;
 	padding-right: 5px;
 }
@@ -186,6 +186,18 @@ body {
 	color: #000000;
 }
 
+.show-added-text {
+	color: #828282;
+	font-size: 10pt;
+	padding-top: 12px;
+	padding-bottom: 3px;
+	text-align: left;
+}
+
+.show-added-text a {
+	color: #828282;
+}
+
 /* 768 and up */
 @media (min-width: 769px) {
 	.Page {
@@ -227,6 +239,10 @@ body {
 
 	.header-link {
 		padding: 0 8px;
+	}
+
+	.show-added-text {
+		margin-left: 33px;
 	}
 
 	.logo {
@@ -339,6 +355,10 @@ body {
 		font-size: 13px;
 		position: static;
 		padding: 10px;
+	}
+
+	.show-added-text {
+		margin-left: 43px;
 	}
 
 	/* .age, .hide {

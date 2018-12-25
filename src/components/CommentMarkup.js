@@ -16,19 +16,16 @@ class CommentMarkup extends Component {
         this.getDiff = props.post.getDiff
         // console.log('props', this.props )
 	}
-
+    // goes up the tree until it find parent
     findOriginal(parentID){
-        // let parent = post.parent
     //call api on parent
         return utils.getAPI(`https://hacker-news.firebaseio.com/v0/item/${parentID}.json?print=pretty`)
         .then(item => {
-            // console.log('item', item)
             // if parent is story done
             if(item.type === 'story'){
                 this.setState({
                     original: item
                 })
-                // console.log('state', this.state)
                 return
             } else {
                 // call again with new parent val
@@ -69,7 +66,7 @@ class CommentMarkup extends Component {
 
         return (
             <div className={`Post ${utils.checkRoute() ? 'comment' : ''}`}>
-            
+
             <div className="subtext post-child">
                 <div className="vote">
                     <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
