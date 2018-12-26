@@ -11,7 +11,7 @@ function Router(){
             <Route exact path="/" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")} />}/>
             <Route path="/newest" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty")} />}/>
             <Route path="/show" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/showstories.json?print=pretty")} />}/>
-            <Route path="/shownew" component={() => <Page data={utils.filterShowStories()} />}/>
+            <Route path="/shownew" component={Page}/>
             <Route path="/ask" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/askstories.json?print=pretty")} />}/>
             <Route path="/jobs" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/jobstories.json?print=pretty")} />}/>
             <Route path="/comments" component={() => <Page data={utils.walkBackComments()} />}/>

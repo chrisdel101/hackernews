@@ -140,11 +140,10 @@ function commentsLink(post) {
 		return `${post.kids.length} comments`
 	}
 }
-
+// shows link to the name of website post came from - i.e. medium.com
 function hostURL(url) {
 	// if no url, return null in ternary
 	if(!url) {
-		console.log('NO URL')
 		return ''
 	}
 	// console.log(url)
@@ -157,6 +156,7 @@ function hostURL(url) {
 function checkLoaded(arr){
     return !arr.length ? false : true
 }
+
 function filterShowStories(){
     getAPI(" https://hacker-news.firebaseio.com/v0/showstories.json?print=pretty")
     .then(stories => {
@@ -176,6 +176,11 @@ function filterShowStories(){
         })
     })
 }
+// encode text in string
+function encodeStr(base, query){
+	return encodeURI(`${base}${query}`)
+}
+
 module.exports = {
     getAPI: getAPI,
 	getDiff: getDiff,
@@ -188,5 +193,6 @@ module.exports = {
 	commentsLink: commentsLink,
     checkRoute: checkRoute,
     checkLoaded: checkLoaded,
-    filterShowStories: filterShowStories
+    filterShowStories: filterShowStories,
+    encodeStr: encodeStr
 }

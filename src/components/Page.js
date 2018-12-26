@@ -7,7 +7,7 @@ import utils from "../utils";
 // import getJSON from "../utils"
 class Page extends Component {
 	constructor(props) {
-        console.log('props page')
+        console.log('props page', props)
 		super(props);
 		this.state = {
 			data: [],
@@ -56,9 +56,9 @@ class Page extends Component {
                     },
                     (_, i) => maxNum - i
                 ).map(id => {
-                    // console.log(id)
+                    // check which route it is being called in with flag - comment or non-comment
                     return utils.getStory(id).then(obj => {
-                        // reject nulls
+                        // reject nulls here
                         if (obj) {
                             if(dataToGet === "comment"){
                                 if (obj.type === "comment") {
@@ -121,7 +121,13 @@ class Page extends Component {
             })
         })
     }
+    colorLinks(){
+        let route = window.location.pathname
+        let elem = document.querySelector("a[href="+ "'" + route + "'" + "]")
+        elem.style.color = "#ffffff"
+    }
 	componentDidMount() {
+        this.colorLinks()
         // check if comments route
 		if (utils.checkRoute('/comments')) {
 			// get comments and set state

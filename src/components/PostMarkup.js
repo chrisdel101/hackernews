@@ -4,18 +4,17 @@ import utils from '../utils'
 
 function PostMarkup(props){
     let post = props.post.post
-    console.log('props', props.post)
+    // console.log('props', props.post)
     let index = props.post.index
     let hostURL = props.post.hostURL
     let getDiff = props.post.getDiff
     let commentsLink = props.post.commentsLink
-    // render this markup when func called'
-    function alternateMarkup(text, href){
+    // render this markup when needed'
+    function alternateMarkup(text, href, index){
         return(
-            <span className={text}>
+            <span className={text} key={index}>
                 <a href={href}>&nbsp;{text}</a>
             </span>
-
         )
     }
     return (
@@ -48,12 +47,16 @@ function PostMarkup(props){
             </span>
             {
                 window.location.pathname === '/' || window.location.pathname === '/news' ?
-                alternateMarkup('hide',`https://news.ycombinator.com/hide?id=${post.id}&goto=newest` ) :
+                alternateMarkup('hide',`https://news.ycombinator.com/hide?id=${post.id}&goto=newest`, index ) :
                 null
             }
             {
                 window.location.pathname === "/newest" ?
-                [alternateMarkup('hide',`https://news.ycombinator.com/hide?id=${post.id}&goto=newest` ),alternateMarkup('past'), alternateMarkup('web')]
+                [
+                    alternateMarkup('hide',`https://news.ycombinator.com/hide?id=${post.id}&goto=newest` ,index),
+                    alternateMarkup('past', utils.encodeStr(`https://hn.algolia.com/?query=`, post.title), index+100),
+                    alternateMarkup('web', utils.encodeStr(`https://www.google.com/search?q=`, post.title), index+200)
+                ]
                     : null
 
             }
