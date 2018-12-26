@@ -54,13 +54,13 @@ body {
 }
 
 .Post.comment>.subtext {
-	display: inline-flex;
+	/* display: inline-flex; */
 	font-size: 8pt;
 	padding: 5px 0;
 }
 
 .Post.comment>.text-container {
-	display: inline-flex;
+	/* display: inline-flex; */
 	padding-left: 1.3em;
 }
 
@@ -82,6 +82,8 @@ body {
 .Post.comment>.post-child {
 	width: 100%;
 }
+
+.Footer {}
 
 .parent {
 	border-right: #828282 solid 1px;
@@ -139,7 +141,8 @@ body {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 7pt;
 	color: #828282;
-	float: left;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .vote img {
@@ -217,6 +220,10 @@ body {
 		font-size: 7pt;
 	}
 
+	.text-container {
+		max-width: 600px;
+	}
+
 	.Post.comment>.text-container {
 		padding-left: 1.0em
 	}
@@ -276,16 +283,28 @@ body {
 	}
 }
 
-/* MOVE Appname at each of these point */
-@media (min-width: 476px) {
+/* MOVE elems at each of these point */
+@media (min-width: 0) and (max-width: 476px) {
+	.text-container {
+		max-width: 350px;
+	}
+}
+
+@media (min-width: 477px) {
 	.app-name, .header-links {
 		right: 5px;
 	}
 }
 
-@media (min-width: 560px) {
-	.app-name, .header-links {
-		right: 15px;
+@media (min-width: 477px) and (max-width: 559px) {
+	.text-container {
+		max-width: 400px;
+	}
+}
+
+@media (min-width: 560px) and (max-width: 768px) {
+	.text-container {
+		max-width: 500px;
 	}
 }
 
@@ -294,9 +313,9 @@ body {
 		right: 32px;
 	}
 
-	.title {
+	/* .title {
 		max-width: 540px !important;
-	}
+	} */
 }
 
 /* MOBILE */
@@ -324,7 +343,6 @@ body {
 	.title {
 		font-size: 11pt;
 		line-height: 14pt;
-		max-width: 350px;
 	}
 
 	.Post.comment>.text-container>.title {
@@ -361,15 +379,7 @@ body {
 		margin-left: 43px;
 	}
 
-	/* .age, .hide {
-		border-right: #828282 solid 1px;
-		padding-right: 5px;
-	} */
 	#host-url {
 		font-size: 11px;
-	}
-
-	.page-inner-container {
-		display: flex;
 	}
 }

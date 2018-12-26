@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Post from "./Post";
 import Header from "./Header";
+import Footer from "./Footer";
 import data from "../data/post_data.json";
 import utils from "../utils";
 
@@ -13,7 +14,7 @@ class Page extends Component {
 			data: [],
 			comments: "",
             stories: "",
-            links: [
+            headerLinks: [
                 {
                     link: "new",
                     url: "/newest"
@@ -38,6 +39,38 @@ class Page extends Component {
                     link: "submit",
                     url: "https://news.ycombinator.com/submit"
                 }
+            ],
+            footerLinks: [
+                {
+                    link: "Guildlines"
+                },
+                {
+                    link: "FAQ"
+                },
+                {
+                    link: "Support"
+                },
+                {
+                    link: "API"
+                },
+                {
+                    link: "Security"
+                },
+                {
+                    link: "Lists"
+                },
+                {
+                    link: "Bookmarklet"
+                },
+                {
+                    link: "Legal"
+                },
+                {
+                    link: "Apply to YC"
+                },
+                {
+                    link: "Contact"
+                },
             ]
 		}
 
@@ -169,7 +202,7 @@ class Page extends Component {
 		}
 	}
     // check which markup to render- run inside render func
-    renderContent(){
+    renderBodyContent(){
         // if comments Page
         if(utils.checkRoute('/comments')){
             // if state is loaded
@@ -217,20 +250,22 @@ class Page extends Component {
 	// }
 	render() {
 		return (
-			<div className="Page"    >
+			<div className="Page">
 				<div className="page-inner-container">
 					<div className="header-container">
 						<Header
 							Appname="Hacker News"
-							links={this.state.links}
+							links={this.state.headerLinks}
 						/>{" "}
 					</div>{" "}
-				</div>{" "}
-				<div className="body-container">
-					{" "}
-                    {this.renderContent()}
-				</div>{" "}
-
+    				<div className="body-container">
+    					{" "}
+                        {this.renderBodyContent()}
+    				</div>{" "}
+                    <div className="footer-container">
+                        <Footer links={this.state.footerLinks}/>
+                    </div>
+                </div>{" "}
 			</div>
 		);
 	}

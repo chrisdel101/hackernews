@@ -12,19 +12,19 @@ function PostMarkup(props){
     // render this markup when needed'
     function alternateMarkup(text, href, index){
         return(
-            <span className={text} key={index}>
+            <div className={text} key={index}>
                 <a href={href}>&nbsp;{text}</a>
-            </span>
+            </div>
         )
     }
     return (
     <div className="Post" key={index}>
         <div className="rank">
-        <span>{index+1}.</span>
+        <div>{index+1}.</div>
     </div>
     <div className="vote">
         <a href={`https://news.ycombinator.com/vote?id=${post.id}&how=up&goto=news`}>
-        <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
+        <div><img src="https://news.ycombinator.com/grayarrow2x.gif"/></div>
         </a>
     </div>
     <div className="text-container">
@@ -37,14 +37,13 @@ function PostMarkup(props){
             </a>
         </div>
         <div className="subtext">
-            <span className="score">{post.score}
-                points by {''}
+            <div className="score">{post.score}&nbsp;points by {''}
                 <a href={`https://news.ycombinator.com/user?id=${post.by}`}>{''}{post.by}</a>
-            </span>
-            <span className="age">
+            </div>
+            <div className="age">
                 {''}
                 <a href={`https://news.ycombinator.com/item?id=${post.id}`}>&nbsp;{getDiff(post.time)}</a>
-            </span>
+            </div>
             {
                 window.location.pathname === '/' || window.location.pathname === '/news' ?
                 alternateMarkup('hide',`https://news.ycombinator.com/hide?id=${post.id}&goto=newest`, index ) :
@@ -60,9 +59,9 @@ function PostMarkup(props){
                     : null
 
             }
-            <span className="comment">
+            <div className="comment">
                 <a href={`https://news.ycombinator.com/item?id=${post.id}`}>&nbsp;{commentsLink(post)}</a>
-            </span>
+            </div>
         </div>
         </div>
     </div>)
