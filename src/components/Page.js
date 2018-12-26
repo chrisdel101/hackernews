@@ -75,7 +75,7 @@ class Page extends Component {
 		}
 
     }
-    // get top 100 comments and add to state
+    // use to get data if not passed in my router
     getData(dataToGet) {
         utils.getAPI("https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty")
         // .then(blob => blob.json())
@@ -85,7 +85,7 @@ class Page extends Component {
             Promise.all(
                 Array.from(
                     {
-                        length: 300
+                        length: 100
                     },
                     (_, i) => maxNum - i
                 ).map(id => {
@@ -171,6 +171,7 @@ class Page extends Component {
             // console.log('show', this.state)
 		} else {
 			console.log("not comments")
+            // push entire array of props to state
 			this.props.data.then(result => {
 					this.setState({
 						data: result
@@ -178,7 +179,6 @@ class Page extends Component {
 				})
 				.catch(e => console.error(`error: ${e}`));
 		}
-
 	}
 	// render piece of text on show page
 	ShowPageText() {
@@ -188,17 +188,13 @@ class Page extends Component {
 					Please read the{" "}
 					<a href="https://news.ycombinator.com/showhn.html"> rules</a>. You can
 					also browse the{" "}
-					<a
-						href="/shownew
-				"
-					>
-						newest
+					<a href="/shownew">newest
 					</a>{" "}
 					Show HNs.{" "}
 				</div>
-			);
+			)
 		} else {
-			return null;
+			return null
 		}
 	}
     // check which markup to render- run inside render func
@@ -226,13 +222,12 @@ class Page extends Component {
                     </div>
                 )
             }
-
         } else {
             if(utils.checkLoaded(this.state.data)){
                 return(<div>
                     <this.ShowPageText />
                     {console.log('Render - Data')}{" "}
-                    {console.log(this.state)}{" "}
+                    {console.log(utils.paginate(this.state.data))}{" "}
                     <Post data={this.state.data} />{" "}
                     </div>
                 )

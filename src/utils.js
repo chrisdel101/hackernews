@@ -180,6 +180,22 @@ function filterShowStories(){
 function encodeStr(base, query){
 	return encodeURI(`${base}${query}`)
 }
+// returns value then increments
+// takes an array of results
+const paginateBy30 = (function () {
+  var counter = 0
+  return function () {
+      counter = counter += 30
+      return counter
+  }
+})();
+function paginate(arr){
+    let count = paginateBy30()
+    let sliceStart = count - 30
+    let sliceEnd = count
+    let chunk = arr.slice(sliceStart, sliceEnd)
+    return chunk
+}
 
 module.exports = {
     getAPI: getAPI,
@@ -194,5 +210,6 @@ module.exports = {
     checkRoute: checkRoute,
     checkLoaded: checkLoaded,
     filterShowStories: filterShowStories,
-    encodeStr: encodeStr
+    encodeStr: encodeStr,
+    paginate: paginate
 }
