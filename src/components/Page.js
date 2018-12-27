@@ -253,7 +253,7 @@ class Page extends Component {
 
                 } else {
                     return(
-                        <div> Fetching Data API Data </div>
+                        <div> Fetching API Data </div>
                     )
                 }
             // } else {
@@ -268,10 +268,6 @@ class Page extends Component {
 	//     let tds = document.querySelectorAll('td')
 	//     utils.elementsRandomColor(tds)
 	// }
-    // updatePageState(){
-    //     let slice = utils.paginate(this.state.fullData)
-    //
-    // }
 	render() {
 		return (
 			<div className="Page">
@@ -285,7 +281,9 @@ class Page extends Component {
     				<div className="body-container">
     					{" "}
                         {this.renderBodyContent()}
-                        <div id="paginator" onClick={this.updatePageState.bind(this)}>More</div>
+                        <div id="paginator" onClick={() => {
+                            this.updatePageState(this.state.fullData)
+                        }}>More</div>
     				</div>{" "}
                         <Footer links={this.state.footerLinks}/>
                 </div>{" "}

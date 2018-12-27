@@ -160,12 +160,11 @@ function isEmpty(obj) {
     }
     return true;
 }
-// check if array has length inisde render
+// check if array has length inisde render - t for length
 function checkLoaded(item){
     if(Array.isArray(item)){
         return !item.length ? false : true
     } else if(!(Array.isArray(item)) && typeof "object") {
-        console.log(!isEmpty(item))
         return !isEmpty(item)
     }
 }
