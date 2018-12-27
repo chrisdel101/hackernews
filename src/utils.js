@@ -206,7 +206,9 @@ function range(start, stop, step){
     return  Array.from({ length: (stop - start) / step }, (_, i) => start + (i * step))
 }
 function paginate(arr){
+    console.log('paginate')
     let count = countBy30()
+    console.log(count)
     let sliceStart = count - 30
     let sliceEnd = count
     let indexes = range(sliceStart+1, sliceEnd+1, 1)

@@ -13,7 +13,8 @@ class Page extends Component {
 		this.state = {
 			fullData: [],
             chunkData: [],
-			comments: "",
+            fullComments: [],
+			comments: [],
             stories: "",
             headerLinks: [
                 {
@@ -111,8 +112,14 @@ class Page extends Component {
                 if(dataToGet === 'comment'){
                     let comments = items.filter(obj => obj)
                     this.setState(prevState => ({
-                        comments: [...prevState.comments, comments]
+                        fullComments: [...prevState.comments, comments]
                     }))
+                    let obj =
+                    // this.setState({
+                    //     comments: this.updatePageState(this.state.fullComments, 'comments')
+                    // })
+                    console.log(this.state)
+
                 } else if(dataToGet === 'show'){
                     console.log('show')
                     let newShows = items.map((item) => {
@@ -160,13 +167,18 @@ class Page extends Component {
         let elem = document.querySelector("a[href="+ "'" + route + "'" + "]")
         elem.style.color = "#ffffff"
     }
-    // pass in arr to be sliced
-    updatePageState(arr){
+    //fired onclick pass in arr to be sliced
+    updatePageState(arr, stateKey){
+        console.log('fired')
         let obj = utils.paginate(arr)
-        console.log('obj', obj)
+        console.log('paginate obj', obj)
+        console.log('datakey', stateKey)
+        // use [] to set string in key
         this.setState({
-            chunkData: obj
+            [stateKey]: obj
         })
+        // console.log('state', this.state.stateKey)
+        console.log('state', this.state[stateKey])
     }
 	componentDidMount() {
         this.colorLinks()
@@ -185,14 +197,13 @@ class Page extends Component {
 					this.setState({
 						fullData: result
 					}, () => {
-                        // on load set first 30
-                        // this.updatePageState(this.state.fullData)
+                        // on load slice out first thirty
                         let obj = utils.paginate(this.state.fullData)
-                        console.log('obj', obj)
+                        // set first 30 to state
                         this.setState({
                             chunkData: obj
                         })
-                        this.updatePageState(this.state.fullData)
+                        // this.updatePageState(this.state.fullData)
                     })
 				})
 				.catch(e => console.error(`error: ${e}`));
@@ -224,6 +235,8 @@ class Page extends Component {
                 return(<div>
                     <this.ShowPageText />
                     {console.log('Render - Comment')}{" "}
+                    {console.log(this.state.comments)}{" "}
+                    {console.log(Array.isArray(this.state.comments))}{" "}
                     <Post data={this.state.comments} />{" "}
                     </div>
                 )
@@ -241,13 +254,13 @@ class Page extends Component {
                 )
             }
         } else {
-            // if(utils.checkLoaded(this.state.fullData)){
+            if(utils.checkLoaded(this.state.fullData)){
                 if(utils.checkLoaded(this.state.chunkData)){
                     return(<div>
                         <this.ShowPageText />
                         {console.log('Render-Data')}{" "}
                         {" "}
-                        <Post data={this.state.chunkData.data} />{" "}
+                        <Post data={this.state.chunkData} />{" "}
                         </div>
                     )
 
@@ -256,11 +269,11 @@ class Page extends Component {
                         <div> Fetching API Data </div>
                     )
                 }
-            // } else {
-            //     return(
-            //         <div> Fetching Data API Data </div>
-            //     )
-            // }
+            } else {
+                return(
+                    <div> Fetching Data API Data </div>
+                )
+            }
 
         }
     }
@@ -282,7 +295,7 @@ class Page extends Component {
     					{" "}
                         {this.renderBodyContent()}
                         <div id="paginator" onClick={() => {
-                            this.updatePageState(this.state.fullData)
+                            this.updatePageState(this.state.fullData, "chunkData")
                         }}>More</div>
     				</div>{" "}
                         <Footer links={this.state.footerLinks}/>

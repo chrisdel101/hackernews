@@ -20,7 +20,7 @@ function PostMarkup(props){
     return (
     <div className="Post" key={index}>
         <div className="rank">
-        <div>{index+1}.</div>
+        <div>{index}.</div>
     </div>
     <div className="vote">
         <a href={`https://news.ycombinator.com/vote?id=${post.id}&how=up&goto=news`}>
