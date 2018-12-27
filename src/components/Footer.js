@@ -2,7 +2,7 @@ import React from 'react'
 
 function Footer(props){
     return(
-        <div className="Footer">
+        <footer className="Footer">
         <div className="footer-links">
         {
             props.links.map((link, index) => {
@@ -10,7 +10,7 @@ function Footer(props){
             })
         }
         </div>
-        </div>
+        </footer>
     )
 }
 

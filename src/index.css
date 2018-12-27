@@ -83,7 +83,33 @@ body {
 	width: 100%;
 }
 
-.Footer {}
+footer {
+	background-color: #F6F6EF;
+	border-top: solid rgb(255, 102, 0) 2px;
+}
+
+.footer-links {
+	padding: 20px 0;
+	display: flex;
+	font-size: 8pt;
+	justify-content: center;
+	flex-wrap: wrap;
+	/* color: #828282; */
+}
+
+.footer-link {
+	margin: 0 5px;
+	white-space: nowrap;
+}
+
+#paginator {
+	text-align: left;
+	padding-left: 55px;
+	padding-top: 15px;
+	padding-bottom: 10px;
+	color: #828282;
+	font-size: 11pt;
+}
 
 .parent {
 	border-right: #828282 solid 1px;
@@ -281,11 +307,20 @@ body {
 	#host-url {
 		font-size: 11px;
 	}
+
+	#paginator {
+		font-size: 10pt;
+		padding-left: 45px;
+	}
 }
 
 /* MOVE elems at each of these point */
 @media (min-width: 0) and (max-width: 476px) {
 	.text-container {
+		max-width: 350px;
+	}
+
+	.footer-links {
 		max-width: 350px;
 	}
 }

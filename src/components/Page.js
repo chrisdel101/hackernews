@@ -11,7 +11,8 @@ class Page extends Component {
         console.log('props page', props)
 		super(props);
 		this.state = {
-			data: [],
+			fullData: [],
+            chunkData: [],
 			comments: "",
             stories: "",
             headerLinks: [
@@ -159,6 +160,14 @@ class Page extends Component {
         let elem = document.querySelector("a[href="+ "'" + route + "'" + "]")
         elem.style.color = "#ffffff"
     }
+    // pass in arr to be sliced
+    updatePageState(arr){
+        let obj = utils.paginate(arr)
+        console.log('obj', obj)
+        this.setState({
+            chunkData: obj
+        })
+    }
 	componentDidMount() {
         this.colorLinks()
         // check if comments route
@@ -174,8 +183,17 @@ class Page extends Component {
             // push entire array of props to state
 			this.props.data.then(result => {
 					this.setState({
-						data: result
-					});
+						fullData: result
+					}, () => {
+                        // on load set first 30
+                        // this.updatePageState(this.state.fullData)
+                        let obj = utils.paginate(this.state.fullData)
+                        console.log('obj', obj)
+                        this.setState({
+                            chunkData: obj
+                        })
+                        this.updatePageState(this.state.fullData)
+                    })
 				})
 				.catch(e => console.error(`error: ${e}`));
 		}
@@ -223,19 +241,26 @@ class Page extends Component {
                 )
             }
         } else {
-            if(utils.checkLoaded(this.state.data)){
-                return(<div>
-                    <this.ShowPageText />
-                    {console.log('Render - Data')}{" "}
-                    {console.log(utils.paginate(this.state.data))}{" "}
-                    <Post data={this.state.data} />{" "}
-                    </div>
-                )
-            } else {
-                return(
-                    <div> Fetching Data API Data </div>
-                )
-            }
+            // if(utils.checkLoaded(this.state.fullData)){
+                if(utils.checkLoaded(this.state.chunkData)){
+                    return(<div>
+                        <this.ShowPageText />
+                        {console.log('Render-Data')}{" "}
+                        {" "}
+                        <Post data={this.state.chunkData.data} />{" "}
+                        </div>
+                    )
+
+                } else {
+                    return(
+                        <div> Fetching Data API Data </div>
+                    )
+                }
+            // } else {
+            //     return(
+            //         <div> Fetching Data API Data </div>
+            //     )
+            // }
 
         }
     }
@@ -243,6 +268,10 @@ class Page extends Component {
 	//     let tds = document.querySelectorAll('td')
 	//     utils.elementsRandomColor(tds)
 	// }
+    // updatePageState(){
+    //     let slice = utils.paginate(this.state.fullData)
+    //
+    // }
 	render() {
 		return (
 			<div className="Page">
@@ -256,10 +285,9 @@ class Page extends Component {
     				<div className="body-container">
     					{" "}
                         {this.renderBodyContent()}
+                        <div id="paginator" onClick={this.updatePageState.bind(this)}>More</div>
     				</div>{" "}
-                    <div className="footer-container">
                         <Footer links={this.state.footerLinks}/>
-                    </div>
                 </div>{" "}
 			</div>
 		);

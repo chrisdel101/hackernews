@@ -152,10 +152,24 @@ function hostURL(url) {
 	hostname = hostname.replace(/^(www\.)/, "");
 	return hostname
 }
-// check if array has length inisde render
-function checkLoaded(arr){
-    return !arr.length ? false : true
+// check if object empty
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
 }
+// check if array has length inisde render
+function checkLoaded(item){
+    if(Array.isArray(item)){
+        return !item.length ? false : true
+    } else if(!(Array.isArray(item)) && typeof "object") {
+        console.log(!isEmpty(item))
+        return !isEmpty(item)
+    }
+}
+
 
 function filterShowStories(){
     getAPI(" https://hacker-news.firebaseio.com/v0/showstories.json?print=pretty")
@@ -180,21 +194,28 @@ function filterShowStories(){
 function encodeStr(base, query){
 	return encodeURI(`${base}${query}`)
 }
-// returns value then increments
-// takes an array of results
-const paginateBy30 = (function () {
+// takes an array of results - returns value then increments
+// holds values in a closure
+const countBy30 = (function () {
   var counter = 0
   return function () {
       counter = counter += 30
       return counter
   }
 })();
+function range(start, stop, step){
+    return  Array.from({ length: (stop - start) / step }, (_, i) => start + (i * step))
+}
 function paginate(arr){
-    let count = paginateBy30()
+    let count = countBy30()
     let sliceStart = count - 30
     let sliceEnd = count
+    let indexes = range(sliceStart+1, sliceEnd+1, 1)
     let chunk = arr.slice(sliceStart, sliceEnd)
-    return chunk
+    return {
+        data: chunk,
+        indexes: indexes
+    }
 }
 
 module.exports = {
