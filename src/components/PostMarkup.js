@@ -17,10 +17,13 @@ function PostMarkup(props){
             </div>
         )
     }
+    // don't render indexes on jobs route
     return (
     <div className="Post" key={index}>
         <div className="rank">
-        <div>{index}.</div>
+        { !utils.checkRoute('/jobs') || !utils.checkRoute('/comments')?
+            <div>{index}.</div> : null
+        }
     </div>
     <div className="vote">
         <a href={`https://news.ycombinator.com/vote?id=${post.id}&how=up&goto=news`}>

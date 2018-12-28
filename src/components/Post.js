@@ -5,6 +5,7 @@ import utils from '../utils'
 
 // Post takes an array or an object. Login sorts them
 function Post(props) {
+    console.log('props', props)
     let indexes
     let posts = props.data
     // if props.data an object, set up indexes

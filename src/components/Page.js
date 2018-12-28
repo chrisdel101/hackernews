@@ -14,7 +14,7 @@ class Page extends Component {
 			fullData: [],
             chunkData: [],
             fullComments: [],
-			comments: [],
+			chunkComments: [],
             stories: "",
             headerLinks: [
                 {
@@ -111,15 +111,17 @@ class Page extends Component {
             ).then(items => {
                 if(dataToGet === 'comment'){
                     let comments = items.filter(obj => obj)
+                    // push all comments to state
                     this.setState(prevState => ({
                         fullComments: [...prevState.comments, comments]
                     }))
-                    let obj =
-                    // this.setState({
-                    //     comments: this.updatePageState(this.state.fullComments, 'comments')
-                    // })
+                    // paginate comments on load
+                    let obj = utils.paginate(this.state.fullComments[0])
+                    // set first 30 to state
+                    this.setState({
+                        chunkComments: obj
+                    })
                     console.log(this.state)
-
                 } else if(dataToGet === 'show'){
                     console.log('show')
                     let newShows = items.map((item) => {
@@ -140,6 +142,7 @@ class Page extends Component {
             })
         })
     }
+
     filterShowStories(){
         utils.getAPI(" https://hacker-news.firebaseio.com/v0/showstories.json?print=pretty")
         .then(stories => {
@@ -194,10 +197,11 @@ class Page extends Component {
 			console.log("not comments")
             // push entire array of props to state
 			this.props.data.then(result => {
+                // load full data
 					this.setState({
 						fullData: result
 					}, () => {
-                        // on load slice out first thirty
+                        //paginate data on load
                         let obj = utils.paginate(this.state.fullData)
                         // set first 30 to state
                         this.setState({
@@ -231,13 +235,15 @@ class Page extends Component {
         // if comments Page
         if(utils.checkRoute('/comments')){
             // if state is loaded
-            if(utils.checkLoaded(this.state.comments)){
+            if(utils.checkLoaded(this.state.fullComments)){
+                console.log('fired')
+                console.log('state', this.state)
                 return(<div>
                     <this.ShowPageText />
                     {console.log('Render - Comment')}{" "}
-                    {console.log(this.state.comments)}{" "}
-                    {console.log(Array.isArray(this.state.comments))}{" "}
-                    <Post data={this.state.comments} />{" "}
+                    {console.log(this.state.chunkComments)}{" "}
+                    {console.log(Array.isArray(this.state.chunkComments))}{" "}
+                    <Post data={this.state.chunkComments} />{" "}
                     </div>
                 )
             } else {
@@ -263,7 +269,6 @@ class Page extends Component {
                         <Post data={this.state.chunkData} />{" "}
                         </div>
                     )
-
                 } else {
                     return(
                         <div> Fetching API Data </div>
