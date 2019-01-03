@@ -80,7 +80,7 @@ function walkBackComments() {
 						}
 					})
 			})
-			console.log('routing return')
+			console.log('walk back okay')
 			return objs
 		})
 }

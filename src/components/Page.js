@@ -80,8 +80,6 @@ class Page extends Component {
     // use to get data if not passed in my router
     getData(dataToGet) {
         utils.getAPI("https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty")
-        // .then(blob => blob.json())
-        // .then(json => json)
         .then(maxNum => {
             //	 insert ids into URL - get array of promises
             Promise.all(
@@ -110,18 +108,19 @@ class Page extends Component {
                 })
             ).then(items => {
                 if(dataToGet === 'comment'){
+                    // filter out undefined
                     let comments = items.filter(obj => obj)
                     // push all comments to state
                     this.setState(prevState => ({
-                        fullComments: [...prevState.comments, comments]
+                        fullComments: [prevState, comments]
                     }))
                     // paginate comments on load
-                    let obj = utils.paginate(this.state.fullComments[0])
+                    let obj = utils.paginate(this.state.fullComments)
                     // set first 30 to state
                     this.setState({
                         chunkComments: obj
                     })
-                    console.log(this.state)
+                    console.log('state', this.state)
                 } else if(dataToGet === 'show'){
                     console.log('show')
                     let newShows = items.map((item) => {
