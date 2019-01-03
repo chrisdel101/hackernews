@@ -44,34 +44,44 @@ class Page extends Component {
             ],
             footerLinks: [
                 {
-                    link: "Guildlines"
+                    link: "Guildlines",
+                    url: "#"
                 },
                 {
-                    link: "FAQ"
+                    link: "FAQ",
+                    url: "#"
                 },
                 {
-                    link: "Support"
+                    link: "Support",
+                    url: "#"
                 },
                 {
-                    link: "API"
+                    link: "API",
+                    url: "#"
                 },
                 {
-                    link: "Security"
+                    link: "Security",
+                    url: "#"
                 },
                 {
-                    link: "Lists"
+                    link: "Lists",
+                    url: "#"
                 },
                 {
-                    link: "Bookmarklet"
+                    link: "Bookmarklet",
+                    url: "#"
                 },
                 {
-                    link: "Legal"
+                    link: "Legal",
+                    url: "#"
                 },
                 {
-                    link: "Apply to YC"
+                    link: "Apply to YC",
+                    url: "#"
                 },
                 {
-                    link: "Contact"
+                    link: "Contact",
+                    url: "#"
                 },
             ]
 		}
@@ -110,10 +120,11 @@ class Page extends Component {
                 if(dataToGet === 'comment'){
                     // filter out undefined
                     let comments = items.filter(obj => obj)
+                    console.log('c', comments)
                     // push all comments to state
-                    this.setState(prevState => ({
-                        fullComments: [prevState, comments]
-                    }))
+                    this.setState({
+                        fullComments: comments
+                    })
                     // paginate comments on load
                     let obj = utils.paginate(this.state.fullComments)
                     // set first 30 to state
@@ -233,6 +244,7 @@ class Page extends Component {
     renderBodyContent(){
         // if comments Page
         if(utils.checkRoute('/comments')){
+
             // if state is loaded
             if(utils.checkLoaded(this.state.fullComments)){
                 console.log('fired')
