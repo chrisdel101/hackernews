@@ -5,10 +5,12 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from
 
 class CommentMarkup extends Component {
     constructor(props) {
+        console.log('p', props)
 		super(props);
 		this.state = {
 			original: ""
 		};
+        // console.log('props', props.post.post)
         let that = this
         this.post = props.post.post
         this.index = props.post.index
@@ -40,10 +42,6 @@ class CommentMarkup extends Component {
     componentDidMount(){
         this.findOriginal(this.post.parent)
     }
-    // let origin = findOriginal(post.parent)
-    // // setTimeout(function(){
-    //     console.log('origin', origin)
-    // // },5000)
     slicer(str){
         if(!str){
             return false
@@ -63,39 +61,39 @@ class CommentMarkup extends Component {
         //     return
         // }
         let originalPost = this.state.original.title
-
+        // console.log('props', this.props)
         return (
             <div className={`Post ${utils.checkRoute('/comments') ? 'comment' : ''}`}>
 
-            <div className="subtext post-child">
-                <div className="vote">
-                    <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
+                <div className="subtext post-child">
+                    <div className="vote">
+                        <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
+                    </div>
+                    <div className="by">
+                        {this.post.by}
+                    </div>
+                    <span className="age">
+                    {''}
+                        <a href={`https://news.ycombinator.com/item?id=${this.post.id}`}>&nbsp;{this.getDiff(this.post.time)}</a>
+                    </span>
+                    <span className="parent">
+                    {''}
+                        <a href={`https://news.ycombinator.com/item?id=${this.post.parent}`}>&nbsp;parent</a>
+                    </span>
+                    {''}
+                    <span className="orignal-post">
+                    {''}
+                    <a href={this.state.original.url}>&nbsp;on: {this.slicer(this.state.original.title)}</a>
+
+                    </span>
+
+
                 </div>
-                <div className="by">
-                    {this.post.by}
+                <div className="text-container post-child">
+                    <div className="title">
+                    {ReactHtmlParser(this.post.text)}
+                    </div>
                 </div>
-                <span className="age">
-                {''}
-                    <a href={`https://news.ycombinator.com/item?id=${this.post.id}`}>&nbsp;{this.getDiff(this.post.time)}</a>
-                </span>
-                <span className="parent">
-                {''}
-                    <a href={`https://news.ycombinator.com/item?id=${this.post.parent}`}>&nbsp;parent</a>
-                </span>
-                {''}
-                <span className="orignal-post">
-                {''}
-                <a href={this.state.original.url}>&nbsp;on: {this.slicer(this.state.original.title)}</a>
-
-                </span>
-
-
-            </div>
-            <div className="text-container post-child">
-            <div className="title">
-            {ReactHtmlParser(this.post.text)}
-            </div>
-            </div>
             </div>)
     }
 }

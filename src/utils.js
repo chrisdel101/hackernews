@@ -205,19 +205,31 @@ const countBy30 = (function () {
 function range(start, stop, step){
     return  Array.from({ length: (stop - start) / step }, (_, i) => start + (i * step))
 }
-function paginate(arr){
-    console.log('paginate')
-    let count = countBy30()
-    console.log(count)
-    let sliceStart = count - 30
-    let sliceEnd = count
-    let indexes = range(sliceStart+1, sliceEnd+1, 1)
-    let chunk = arr.slice(sliceStart, sliceEnd)
-    return {
-        data: chunk,
-        indexes: indexes
+// function paginate(arr){
+//     // console.log('paginate')
+//     let count = countBy30()
+//     // console.log(count)
+//     let sliceStart = count - 30
+//     let sliceEnd = count
+//     let indexes = range(sliceStart+1, sliceEnd+1, 1)
+//     let chunk = arr.slice(sliceStart, sliceEnd)
+//     return {
+//         data: chunk,
+//         indexes: indexes
+//     }
+// }
+function paginate(arr) {
+    //increment and get current count
+        let count = this.state.counter + 30;
+        console.log('count', count)
+        let sliceStart = count - 30
+/* console.log('start', sliceStart)
+ */        let sliceEnd = count
+/* console.log('end', sliceEnd) */
+        let chunk = arr.slice(sliceStart, sliceEnd)
+        /* console.log('chunk', chunk) */
+        return {chunkComments: chunk, counter: count};
     }
-}
 
 module.exports = {
     getAPI: getAPI,
