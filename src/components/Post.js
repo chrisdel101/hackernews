@@ -14,28 +14,56 @@ function Post(props) {
         posts = props.data.data
     }
     // if an array bypass the above
+    // function ComponentMarkup(post){
+    //     post = post.post
+    //     return(<div className={`Post ${utils.checkRoute('/comments') ? 'comment' : ''}`}>
+    //
+    //         <div className="subtext post-child">
+    //             <div className="vote">
+    //                 <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
+    //             </div>
+    //             <div className="by">
+    //                 {post.by}
+    //             </div>
+    //
+    //             <span className="parent">
+    //             {''}
+    //                 <a href={`https://news.ycombinator.com/item?id=${post.parent}`}>&nbsp;parent</a>
+    //             </span>
+    //             {''}
+    //
+    //
+    //         </div>
+    //
+    //     </div>)
+    // }
+    function renderMarkup(post, index){
+        // console.log('POST', post)
+        if(!utils.checkRoute('/comments')){
+            return(<PostMarkup key={index} post={
+               {
+                   post: post,
+                   index:indexes[index],
+                   hostURL: utils.hostURL,
+                   getDiff: utils.getDiff,
+                   commentsLink: utils.commentsLink
+               }  }/>
+           )
+       } else {
+           return(<CommentMarkup key={index}  post={ {
+               post: post,
+               index:index,
+               hostURL: utils.hostURL,
+               getDiff: utils.getDiff,
+               commentsLink: utils.commentsLink
+           } }/>
+            )
+       }
+    }
 	return posts.map((post, outerIndex) => {
         return(
-            <div className={`Post ${utils.checkRoute('/comments') ? 'comment' : ''}`}>
-
-                <div className="subtext post-child">
-                    <div className="vote">
-                        <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
-                    </div>
-                    <div className="by">
-                        {post.by}
-                    </div>
-
-                    <span className="parent">
-                    {''}
-                        <a href={`https://news.ycombinator.com/item?id=${post.parent}`}>&nbsp;parent</a>
-                    </span>
-                    {''}
-                    
-
-                </div>
-
-            </div>)
+            renderMarkup(post, outerIndex)
+            )
         {/*return(<CommentMarkup key={outerIndex}  post={ {
             post: post,
             index:outerIndex,
