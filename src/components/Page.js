@@ -180,19 +180,44 @@ class Page extends Component {
         let elem = document.querySelector("a[href="+ "'" + route + "'" + "]")
         elem.style.color = "#ffffff"
     }
-    //fired onclick pass in arr to be sliced
-    updatePageState(arr, stateKey){
-        console.log('fired')
-        let obj = utils.paginate(arr)
-        console.log('paginate obj', obj)
-        console.log('datakey', stateKey)
-        // use [] to set string in key
-        this.setState({
-            [stateKey]: obj
-        })
-        // console.log('state', this.state.stateKey)
-        console.log('state', this.state[stateKey])
+    updatePageState(state, stateKey) {
+        console.log('update', state)
+        let arr
+        if(utils.checkRoute('/comments')){
+            arr = state.chunkComments.data
+            let newState = utils.paginate(arr)
+            this.setState({
+                chunkComments: newState
+            })
+        } else {
+            arr = state.chunkData
+            arr = state.chunkComments
+            let newState = utils.paginate(arr)
+            this.setState({
+                chunkData: newState
+            })
+        }
+        // let newState = utils.paginate(arr)
+        // console.log('newState', newState)
+        // this.setState({
+        //     [stateKey]: newState
+        // })
+        // this.setState(newState)
+        //console.log('new state', this.state)
     }
+    //fired onclick pass in arr to be sliced
+    // updatePageState(arr, stateKey){
+    //     console.log('fired')
+    //     let obj = utils.paginate(arr)
+    //     console.log('paginate obj', obj)
+    //     console.log('datakey', stateKey)
+    //     // use [] to set string in key
+    //     this.setState({
+    //         [stateKey]: obj
+    //     })
+    //     // console.log('state', this.state.stateKey)
+    //     console.log('state', this.state[stateKey])
+    // }
 	componentDidMount() {
         this.colorLinks()
         // check if comments route
@@ -311,7 +336,7 @@ class Page extends Component {
     					{" "}
                         {this.renderBodyContent()}
                         <div id="paginator" onClick={() => {
-                            this.updatePageState(this.state.fullData, "chunkData")
+                            this.updatePageState(this.state)
                         }}>More</div>
     				</div>{" "}
                         <Footer links={this.state.footerLinks}/>
