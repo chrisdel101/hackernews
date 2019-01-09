@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import utils from '../utils'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
-//
+
 // class CommentMarkup extends Component {
 //     constructor(props) {
 //         console.log('p', props)
@@ -18,7 +18,7 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from
 //         this.getDiff = props.post.getDiff
 //         // console.log('props', this.props )
 // 	}
-//     // goes up the tree until it find parent
+//     // goes up the tree until it finds parent
 //     findOriginal(parentID){
 //     //call api on parent
 //         return utils.getAPI(`https://hacker-news.firebaseio.com/v0/item/${parentID}.json?print=pretty`)
@@ -33,8 +33,6 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from
 //                 // call again with new parent val
 //                 // return 'none'
 //                 this.findOriginal(item.parent)
-//
-//
 //             }
 //         })
 //
@@ -51,8 +49,6 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from
 //         } else {
 //             return str
 //         }
-//
-//
 //     }
 //
 //     render(){
@@ -72,6 +68,7 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from
 //                     <div className="by">
 //                         {this.post.by}
 //                     </div>
+//                     {/*
 //                     <span className="age">
 //                     {''}
 //                         <a href={`https://news.ycombinator.com/item?id=${this.post.id}`}>&nbsp;{this.getDiff(this.post.time)}</a>
@@ -81,7 +78,7 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from
 //                         <a href={`https://news.ycombinator.com/item?id=${this.post.parent}`}>&nbsp;parent</a>
 //                     </span>
 //                     {''}
-//                     <span className="orignal-post">
+//                     }<span className="orignal-post">
 //                     {''}
 //                     <a href={this.state.original.url}>&nbsp;on: {this.slicer(this.state.original.title)}</a>
 //
@@ -93,34 +90,55 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from
 //                     <div className="title">
 //                     {ReactHtmlParser(this.post.text)}
 //                     </div>
+//                     */}
 //                 </div>
 //             </div>)
 //     }
 // }
-
-function CommentMarkup(props){
+//
+class CommentMarkup extends Component {
+    constructor(props) {
+        console.log('p', props)
+		super(props);
+		this.state = {
+			original: "",
+            // props: props
+		};
+        // console.log('props', props.post.post)
+        let that = this
+        // this.post = props.post.post
+        this.index = props.post.index
+        this.hostURL = props.post.hostURL
+        this.getDiff = props.post.getDiff
+        // console.log('props', this.props )
+	}
+// function CommentMarkup(props){
     // console.log('POST', post)
-    let post = props.post.post
-    let index = props.post.index
-           let hostURL = props.post.hostURL
-            let getDiff = props.post.getDiff
+    // let post = props.post.post
+    // let index = props.post.index
+    // let hostURL = props.post.hostURL
+    // let getDiff = props.post.getDiff
+    render() {
+        // console.log(this.props)
+        this.post = this.props.post.post
 
-    return(<div className={`Post ${utils.checkRoute('/comments') ? 'comment' : ''}`}>
+        return(
+            <div className={`Post ${utils.checkRoute('/comments') ? 'comment' : ''}`}>
 
-        <div className="subtext post-child">
+            <div className="subtext post-child">
             <div className="vote">
-                <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
+            <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
             </div>
             <div className="by">
-                {post.by}
+            {this.post.by}
             </div>
             <span className="age">
             {''}
-                <a href={`https://news.ycombinator.com/item?id=${post.id}`}>&nbsp;{getDiff(post.time)}</a>
+            <a href={`https://news.ycombinator.com/item?id=${this.post.id}`}>&nbsp;{this.getDiff(this.post.time)}</a>
             </span>
             <span className="parent">
             {''}
-                <a href={`https://news.ycombinator.com/item?id=${post.parent}`}>&nbsp;parent</a>
+            <a href={`https://news.ycombinator.com/item?id=${this.post.parent}`}>&nbsp;parent</a>
             </span>
             {''}
             {/*<span className="orignal-post">
@@ -131,12 +149,15 @@ function CommentMarkup(props){
             */}
 
 
-        </div>
-        <div className="text-container post-child">
-            <div className="title">
-            {ReactHtmlParser(post.text)}
             </div>
-        </div>
-    </div>)
+            <div className="text-container post-child">
+            <div className="title">
+            {ReactHtmlParser(this.post.text)}
+            </div>
+            </div>
+            </div>
+        )
+
+    }
 }
 export default CommentMarkup
