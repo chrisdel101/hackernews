@@ -185,7 +185,7 @@ class Page extends Component {
         // console.log('Arr', arr)
     //increment and get current count
         let count = this.state.counter + 30
-        // console.log('count', count)
+        console.log('count', count)
         let sliceStart = count - 30
  // console.log('start', sliceStart)
      let sliceEnd = count
@@ -214,15 +214,17 @@ class Page extends Component {
         let elem = document.querySelector("a[href="+ "'" + route + "'" + "]")
         elem.style.color = "#ffffff"
     }
-    updatePageState(state, stateKey) {
-        // console.log('update', state)
+    updatePageState(state) {
+        console.log('update', state)
         let arr
         if(utils.checkRoute('/comments')){
             arr = state.fullComments
             let newState = this.paginate(arr)
-            console.log('new', newState)
+            console.log('new', newState.chunkComments)
             this.setState({
-                chunkComments: newState.chunkComments
+                chunkComments: newState.chunkComments,
+                counter: newState.counter,
+                indexes: newState.indexes
             })
         } else {
             arr = state.chunkData
