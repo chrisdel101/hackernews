@@ -46,43 +46,43 @@ class Page extends Component {
             footerLinks: [
                 {
                     link: "Guildlines",
-                    url: "#"
+                    url: "https://news.ycombinator.com/newsguidelines.html"
                 },
                 {
                     link: "FAQ",
-                    url: "#"
+                    url: "https://news.ycombinator.com/newsfaq.html"
                 },
                 {
                     link: "Support",
-                    url: "#"
+                    url: "mailto:hn@ycombinator.com"
                 },
                 {
                     link: "API",
-                    url: "#"
+                    url: "https://github.com/HackerNews/API"
                 },
                 {
                     link: "Security",
-                    url: "#"
+                    url: "https://news.ycombinator.com/security.html"
                 },
                 {
                     link: "Lists",
-                    url: "#"
+                    url: "https://news.ycombinator.com/lists"
                 },
                 {
                     link: "Bookmarklet",
-                    url: "#"
+                    url: "https://news.ycombinator.com/bookmarklet.html"
                 },
                 {
                     link: "Legal",
-                    url: "#"
+                    url: "http://www.ycombinator.com/legal/"
                 },
                 {
                     link: "Apply to YC",
-                    url: "#"
+                    url: "http://www.ycombinator.com/apply/"
                 },
                 {
                     link: "Contact",
-                    url: "#"
+                    url: "mailto:hn@ycombinator.com"
                 },
             ]
 		}
