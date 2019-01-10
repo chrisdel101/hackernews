@@ -271,7 +271,7 @@ class Page extends Component {
     //     console.log('state', this.state[stateKey])
     // }
 	componentDidMount() {
-        this.colorLinks()
+        // this.colorLinks()
         // check if comments route
 		if (utils.checkRoute('/comments')) {
 			// get comments and set state
