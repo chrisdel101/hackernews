@@ -220,6 +220,7 @@ function paginate(arr){
 }
 
 module.exports = {
+    range: range,
     getAPI: getAPI,
 	getDiff: getDiff,
 	elementsRandomColor: elementsRandomColor,

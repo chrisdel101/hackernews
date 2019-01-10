@@ -8,9 +8,10 @@ import utils from "../utils";
 // import getJSON from "../utils"
 class Page extends Component {
 	constructor(props) {
-        console.log('props page', props)
+        // console.log('props page', props)
 		super(props);
 		this.state = {
+            counter: 0,
 			fullData: [],
             chunkData: [],
             fullComments: [],
@@ -119,17 +120,22 @@ class Page extends Component {
             ).then(items => {
                 if(dataToGet === 'comment'){
                     // filter out undefined
+                    // filter out undefined
                     let comments = items.filter(obj => obj)
-                    console.log('c', comments)
+                    // console.log('c', comments)
                     // push all comments to state
+                    let counterAndChunk = this.paginate(comments)
+                    console.log('counterAndChunk', counterAndChunk)
                     this.setState({
-                        fullComments: comments
-                    })
-                    // paginate comments on load
-                    let obj = utils.paginate(this.state.fullComments)
-                    // set first 30 to state
-                    this.setState({
-                        chunkComments: obj
+                        // return {
+                        //     chunkComments: chunk,
+                        //     counter: count,
+                        //     indexes: indexes
+                        // }
+                        fullComments: [...comments],
+                        chunkComments: [...counterAndChunk.chunkComments],
+                        counter: counterAndChunk.counter,
+                        indexes:  counterAndChunk.indexes
                     })
                     console.log('state', this.state)
                 } else if(dataToGet === 'show'){
@@ -175,29 +181,58 @@ class Page extends Component {
             })
         })
     }
+    paginate(arr) {
+        // console.log('Arr', arr)
+    //increment and get current count
+        let count = this.state.counter + 30
+        // console.log('count', count)
+        let sliceStart = count - 30
+ // console.log('start', sliceStart)
+     let sliceEnd = count
+/* console.log('end', sliceEnd) */
+        let indexes = utils.range(sliceStart+1, sliceEnd+1, 1)
+        let chunk = arr.slice(sliceStart, sliceEnd)
+        /* console.log('chunk', chunk) */
+        if(utils.checkRoute('/comments')){
+            return {
+                chunkComments: chunk,
+                counter: count,
+                indexes: indexes
+            }
+        } else {
+            return {
+                chunkData: chunk,
+                counter: count,
+                indexes: indexes
+            }
+
+        }
+    }
+
     colorLinks(){
         let route = window.location.pathname
         let elem = document.querySelector("a[href="+ "'" + route + "'" + "]")
         elem.style.color = "#ffffff"
     }
     updatePageState(state, stateKey) {
-        console.log('update', state)
+        // console.log('update', state)
         let arr
         if(utils.checkRoute('/comments')){
-            arr = state.chunkComments.data
-            let newState = utils.paginate(arr)
+            arr = state.fullComments
+            let newState = this.paginate(arr)
+            console.log('new', newState)
             this.setState({
-                chunkComments: newState
+                chunkComments: newState.chunkComments
             })
         } else {
             arr = state.chunkData
-            arr = state.chunkComments
-            let newState = utils.paginate(arr)
+            // arr = state.chunkComments
+            let newState = this.paginate(arr)
             this.setState({
                 chunkData: newState
             })
         }
-        // let newState = utils.paginate(arr)
+        // let newState = this.paginate(arr)
         // console.log('newState', newState)
         // this.setState({
         //     [stateKey]: newState
@@ -208,7 +243,7 @@ class Page extends Component {
     //fired onclick pass in arr to be sliced
     // updatePageState(arr, stateKey){
     //     console.log('fired')
-    //     let obj = utils.paginate(arr)
+    //     let obj = this.paginate(arr)
     //     console.log('paginate obj', obj)
     //     console.log('datakey', stateKey)
     //     // use [] to set string in key
@@ -233,11 +268,19 @@ class Page extends Component {
             // push entire array of props to state
 			this.props.data.then(result => {
                 // load full data
+                // console.log('c', comments)
+                // push all comments to state
+                // let counterAndChunk = this.paginate(result)
+                // this.setState({
+                //     fullDate: [...result],
+                //     ...counterAndChunk
+                // })
+                // console.log('state', this.state)
 					this.setState({
 						fullData: result
 					}, () => {
                         //paginate data on load
-                        let obj = utils.paginate(this.state.fullData)
+                        let obj = this.paginate(this.state.fullData)
                         // set first 30 to state
                         this.setState({
                             chunkData: obj
@@ -269,16 +312,17 @@ class Page extends Component {
     renderBodyContent(){
         // if comments Page
         if(utils.checkRoute('/comments')){
-
             // if state is loaded
             if(utils.checkLoaded(this.state.fullComments)){
-                console.log('fired')
-                console.log('state', this.state)
+                // console.log('fired')
+                // console.log('state', this.state)
                 return(<div>
                     <this.ShowPageText />
                     {console.log('Render - Comment')}{" "}
+                    {/*}
                     {console.log(this.state.chunkComments)}{" "}
                     {console.log(Array.isArray(this.state.chunkComments))}{" "}
+                    */}
                     <Post data={this.state.chunkComments} />{" "}
                     </div>
                 )
@@ -298,6 +342,7 @@ class Page extends Component {
         } else {
             if(utils.checkLoaded(this.state.fullData)){
                 if(utils.checkLoaded(this.state.chunkData)){
+                    console.log('STATE', this.state)
                     return(<div>
                         <this.ShowPageText />
                         {console.log('Render-Data')}{" "}
