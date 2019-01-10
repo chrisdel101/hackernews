@@ -6,7 +6,7 @@ import utils from '../utils'
 
 function Router(){
     return(
-        <HashRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
         <div>
             <Route exact path="/" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")} />}/>
             <Route path="/newest" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty")} />}/>
@@ -17,7 +17,7 @@ function Router(){
             <Route path="/comments" component={Page}/>
             <Route path="/best" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/beststories.json?print=pretty")} />}/>
         </div>
-        </HashRouter>
+        </BrowserRouter>
     )
 }
 
