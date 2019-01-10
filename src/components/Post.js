@@ -8,10 +8,11 @@ function Post(props) {
     console.log('props', props)
     let indexes
     let posts = props.data
+    // console.log('posts', posts)
     // if props.data an object, set up indexes
     if(!(Array.isArray(props.data)) && typeof "object") {
         indexes = props.data.indexes
-        posts = props.data.data
+        posts = props.data.chunkData
     }
     // if an array bypass the above
     // function ComponentMarkup(post){
@@ -61,6 +62,7 @@ function Post(props) {
        }
     }
 	return posts.map((post, outerIndex) => {
+        // console.log('posts', posts)
         return(
             renderMarkup(post, outerIndex)
             )
