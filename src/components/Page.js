@@ -281,9 +281,11 @@ class Page extends Component {
             this.getData("show")
             // console.log('show', this.state)
 		} else {
+            console.log('TEST ABOVE')
 			console.log("not comments")
             console.log("props", this.props)
-            console.log("env", process.env.PUBLIC_URL)
+            console.log("env", process.env)
+            console.log('TEST BELOW')
 
             // push entire array of props to state
 			this.props.data.then(result => {
