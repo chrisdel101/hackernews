@@ -283,6 +283,8 @@ class Page extends Component {
 		} else {
 			console.log("not comments")
             console.log("props", this.props)
+            console.log("env", process.env.PUBLIC_URL)
+
             // push entire array of props to state
 			this.props.data.then(result => {
                 // load full data
