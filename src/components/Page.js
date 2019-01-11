@@ -20,23 +20,23 @@ class Page extends Component {
             headerLinks: [
                 {
                     link: "new",
-                    url: `${process.env.PUBLIC_URL}/newest`
+                    url: `${process.env.PUBLIC_URL}/#/newest`
                 },
                 {
                     link: "comments",
-                    url: `${process.env.PUBLIC_URL}/comments`
+                    url: `${process.env.PUBLIC_URL}/#/comments`
                 },
                 {
                     link: "show",
-                    url: `${process.env.PUBLIC_URL}/show`
+                    url: `${process.env.PUBLIC_URL}/#/show`
                 },
                 {
                     link: "ask",
-                    url: `${process.env.PUBLIC_URL}/ask`
+                    url: `${process.env.PUBLIC_URL}/#/ask`
                 },
                 {
                     link: "jobs",
-                    url: `${process.env.PUBLIC_URL}/jobs`
+                    url: `${process.env.PUBLIC_URL}/#/jobs`
                 },
                 {
                     link: "submit",
