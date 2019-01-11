@@ -18,7 +18,7 @@ function Post(props) {
     // if an array bypass the above
     // function ComponentMarkup(post){
     //     post = post.post
-    //     return(<div className={`Post ${utils.checkRoute('/comments') ? 'comment' : ''}`}>
+    //     return(<div className={`Post ${utils.checkRoute('comments') ? 'comment' : ''}`}>
     //
     //         <div className="subtext post-child">
     //             <div className="vote">
@@ -41,7 +41,7 @@ function Post(props) {
     // }
     function renderMarkup(post, index){
         // console.log('POST', post)
-        if(!utils.checkRoute('/comments')){
+        if(!utils.checkRoute('comments')){
             return(<PostMarkup key={index} post={
                {
                    post: post,
@@ -78,7 +78,7 @@ function Post(props) {
         // if post is still an array, loop again
         {/*    return Array.isArray(post) ? post.map((item, innerIndex) => {
                 console.log('i', indexes[innerIndex])
-                   return (!utils.checkRoute('/comments')  ?
+                   return (!utils.checkRoute('comments')  ?
                    <PostMarkup key={innerIndex} post={
                        {
                            post: item,
@@ -99,7 +99,7 @@ function Post(props) {
             })
             :
              (
-                !utils.checkRoute('/comments')  ? <PostMarkup key={outerIndex} post={
+                !utils.checkRoute('comments')  ? <PostMarkup key={outerIndex} post={
                     {
                         post: post,
                         index:indexes[outerIndex],

@@ -9,7 +9,7 @@ import utils from "../utils";
 class Page extends Component {
 	constructor(props) {
         // console.log('props page', props)
-		super(props);
+		super(props)
 		this.state = {
             counter: 0,
 			fullData: [],
@@ -137,7 +137,7 @@ class Page extends Component {
                     // filter out undefined
                     // filter out undefined
                     let comments = items.filter(obj => obj)
-                    // console.log('c', comments)
+                    console.log('c', comments)
                     // push all comments to state
                     let counterAndChunk = this.paginate(comments)
                     console.log('counterAndChunk', counterAndChunk)
@@ -208,7 +208,7 @@ class Page extends Component {
         let indexes = utils.range(sliceStart+1, sliceEnd+1, 1)
         let chunk = arr.slice(sliceStart, sliceEnd)
         /* console.log('chunk', chunk) */
-        if(utils.checkRoute('/comments')){
+        if(utils.checkRoute('comments')){
             return {
                 chunkComments: chunk,
                 counter: count,
@@ -232,7 +232,7 @@ class Page extends Component {
     updatePageState(state) {
         console.log('update', state)
         let arr
-        if(utils.checkRoute('/comments')){
+        if(utils.checkRoute('comments')){
             arr = state.fullComments
             let newState = this.paginate(arr)
             console.log('new', newState.chunkComments)
@@ -273,11 +273,11 @@ class Page extends Component {
 	componentDidMount() {
         // this.colorLinks()
         // check if comments route
-		if (utils.checkRoute('/comments')) {
+		if (utils.checkRoute('comments')) {
 			// get comments and set state
 			this.getData("comment")
             // if not comments do this
-        } else if(utils.checkRoute('/shownew')){
+        } else if(utils.checkRoute('shownew')){
             this.getData("show")
             // console.log('show', this.state)
 		} else {
@@ -285,7 +285,7 @@ class Page extends Component {
 			console.log("not comments")
             console.log("props", this.props)
             console.log("env", process.env)
-            console.log('LINKS')
+            console.log('ROUTE')
 
             // push entire array of props to state
 			this.props.data.then(result => {
@@ -333,7 +333,7 @@ class Page extends Component {
     // check which markup to render- run inside render func
     renderBodyContent(){
         // if comments Page
-        if(utils.checkRoute('/comments')){
+        if(utils.checkRoute('comments')){
             // if state is loaded
             if(utils.checkLoaded(this.state.fullComments)){
                 // console.log('chunk',this.state.chunkComments)
@@ -348,7 +348,7 @@ class Page extends Component {
                         <div> Fetching Comments API Data </div>
                     )
             }
-        } else if(utils.checkRoute('/shownew')){
+        } else if(utils.checkRoute('shownew')){
             if(utils.checkLoaded(this.state.stories)){
                 return(<div>
                     {console.log('Render - show new')}{" "}
@@ -385,7 +385,7 @@ class Page extends Component {
 	//     utils.elementsRandomColor(tds)
 	// }
     clickFunc() {
-        if(utils.checkRoute('/comments')){
+        if(utils.checkRoute('comments')){
             this.updatePageState(this.state.fullComments, "chunkComments")
             // console.log('state', this.state)
         } else {
