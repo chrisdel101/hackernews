@@ -285,7 +285,7 @@ class Page extends Component {
 			console.log("not comments")
             console.log("props", this.props)
             console.log("env", process.env)
-            console.log('newestT')
+            console.log('LINKS')
 
             // push entire array of props to state
 			this.props.data.then(result => {
