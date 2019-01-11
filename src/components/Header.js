@@ -14,13 +14,13 @@ function Header(props) {
 	return (<div className="Header">
         <div className="header-cell logo">
                 {/*<a href={window.location.host + '/' + process.env.PUBLIC_URL}>*/}
-                <a href={index + '/' + process.env.PUBLIC_URL}>
+                <a href={index + process.env.PUBLIC_URL}>
 
                 <img src="https://news.ycombinator.com/y18.gif"/>
             </a>
         </div>
 		<div className="header-cell app-name">
-            <a href={index + '/' + process.env.PUBLIC_URL}>
+            <a href={index + process.env.PUBLIC_URL}>
                 <strong>{props.Appname}</strong>
             </a>
         </div>
