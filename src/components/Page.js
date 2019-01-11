@@ -282,6 +282,7 @@ class Page extends Component {
             // console.log('show', this.state)
 		} else {
 			console.log("not comments")
+            console.log("props", this.props)
             // push entire array of props to state
 			this.props.data.then(result => {
                 // load full data
