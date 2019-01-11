@@ -101,7 +101,7 @@ class Page extends Component {
                     },
                     (_, i) => maxNum - i
                 ).map(id => {
-                    // check which route it is being called in with flag - comment or non-comment
+                        // check which route it is being called in with flag - comment or non-comment
                     return utils.getStory(id).then(obj => {
                         // reject nulls here
                         if (obj) {
@@ -285,7 +285,7 @@ class Page extends Component {
 			console.log("not comments")
             console.log("props", this.props)
             console.log("env", process.env)
-            console.log('ROUTE')
+            console.log('HASH')
 
             // push entire array of props to state
 			this.props.data.then(result => {
