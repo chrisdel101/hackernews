@@ -61,7 +61,7 @@ function checkRoute(routeName){
         let pathname = window.location.pathname
         return (pathname === routeName ? true : false)
     } else if(process.env.NODE_ENV === "production"){
-        routeName = `/#/${routeName}`
+        routeName = `#/${routeName}`
         console.log('prod', routeName)
         let hash = window.location.hash
         return (hash === routeName ? true : false)
