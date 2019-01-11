@@ -20,23 +20,23 @@ class Page extends Component {
             headerLinks: [
                 {
                     link: "new",
-                    url: "/newest"
+                    url: `${process.env.PUBLIC_URL}/newest`
                 },
                 {
                     link: "comments",
-                    url: "/comments"
+                    url: `${process.env.PUBLIC_URL}/comments`
                 },
                 {
                     link: "show",
-                    url: "/show"
+                    url: `${process.env.PUBLIC_URL}/show`
                 },
                 {
                     link: "ask",
-                    url: "/ask"
+                    url: `${process.env.PUBLIC_URL}/ask`
                 },
                 {
                     link: "jobs",
-                    url: "/jobs"
+                    url: `${process.env.PUBLIC_URL}/jobs`
                 },
                 {
                     link: "submit",
@@ -285,7 +285,7 @@ class Page extends Component {
 			console.log("not comments")
             console.log("props", this.props)
             console.log("env", process.env)
-            console.log('newest')
+            console.log('newestT')
 
             // push entire array of props to state
 			this.props.data.then(result => {
