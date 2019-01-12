@@ -242,11 +242,14 @@ class Page extends Component {
                 indexes: newState.indexes
             })
         } else {
-            arr = state.chunkData
+            arr = state.fullData
+            console.log('a', arr)
             // arr = state.chunkComments
             let newState = this.paginate(arr)
+            console.log('new', newState)
             this.setState({
-                chunkData: newState
+                chunkData: newState,
+                counter: newState.counter
             })
         }
         // let newState = this.paginate(arr)
