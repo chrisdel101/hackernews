@@ -9,7 +9,7 @@ import utils from "../utils";
 class Page extends Component {
 	constructor(props) {
         // console.log('props page', props)
-		super(props);
+		super(props)
 		this.state = {
             counter: 0,
 			fullData: [],
@@ -20,23 +20,23 @@ class Page extends Component {
             headerLinks: [
                 {
                     link: "new",
-                    url: "/newest"
+                    url: `${process.env.PUBLIC_URL}/#/newest`
                 },
                 {
                     link: "comments",
-                    url: "/comments"
+                    url: `${process.env.PUBLIC_URL}/#/comments`
                 },
                 {
                     link: "show",
-                    url: "/show"
+                    url: `${process.env.PUBLIC_URL}/#/show`
                 },
                 {
                     link: "ask",
-                    url: "/ask"
+                    url: `${process.env.PUBLIC_URL}/#/ask`
                 },
                 {
                     link: "jobs",
-                    url: "/jobs"
+                    url: `${process.env.PUBLIC_URL}/#/jobs`
                 },
                 {
                     link: "submit",
@@ -101,7 +101,7 @@ class Page extends Component {
                     },
                     (_, i) => maxNum - i
                 ).map(id => {
-                    // check which route it is being called in with flag - comment or non-comment
+                        // check which route it is being called in with flag - comment or non-comment
                     return utils.getStory(id).then(obj => {
                         // reject nulls here
                         if (obj) {
@@ -137,7 +137,7 @@ class Page extends Component {
                     // filter out undefined
                     // filter out undefined
                     let comments = items.filter(obj => obj)
-                    // console.log('c', comments)
+                    console.log('c', comments)
                     // push all comments to state
                     let counterAndChunk = this.paginate(comments)
                     console.log('counterAndChunk', counterAndChunk)
@@ -208,7 +208,7 @@ class Page extends Component {
         let indexes = utils.range(sliceStart+1, sliceEnd+1, 1)
         let chunk = arr.slice(sliceStart, sliceEnd)
         /* console.log('chunk', chunk) */
-        if(utils.checkRoute('/comments')){
+        if(utils.checkRoute('comments')){
             return {
                 chunkComments: chunk,
                 counter: count,
@@ -232,7 +232,7 @@ class Page extends Component {
     updatePageState(state) {
         console.log('update', state)
         let arr
-        if(utils.checkRoute('/comments')){
+        if(utils.checkRoute('comments')){
             arr = state.fullComments
             let newState = this.paginate(arr)
             console.log('new', newState.chunkComments)
@@ -242,11 +242,14 @@ class Page extends Component {
                 indexes: newState.indexes
             })
         } else {
-            arr = state.chunkData
+            arr = state.fullData
+            console.log('a', arr)
             // arr = state.chunkComments
             let newState = this.paginate(arr)
+            console.log('new', newState)
             this.setState({
-                chunkData: newState
+                chunkData: newState,
+                counter: newState.counter
             })
         }
         // let newState = this.paginate(arr)
@@ -271,17 +274,23 @@ class Page extends Component {
     //     console.log('state', this.state[stateKey])
     // }
 	componentDidMount() {
-        this.colorLinks()
+        // this.colorLinks()
         // check if comments route
-		if (utils.checkRoute('/comments')) {
+        console.log(utils.checkRoute('comments'))
+		if (utils.checkRoute('comments')) {
 			// get comments and set state
 			this.getData("comment")
             // if not comments do this
-        } else if(utils.checkRoute('/shownew')){
+        } else if(utils.checkRoute('shownew')){
             this.getData("show")
             // console.log('show', this.state)
 		} else {
+            // console.log('TEST ABOVE')
 			console.log("not comments")
+            console.log("props", this.props)
+            console.log("env", process.env)
+            console.log('HASH')
+
             // push entire array of props to state
 			this.props.data.then(result => {
                 // load full data
@@ -300,7 +309,8 @@ class Page extends Component {
                         let obj = this.paginate(this.state.fullData)
                         // set first 30 to state
                         this.setState({
-                            chunkData: obj
+                            chunkData: obj,
+                            counter: obj.counter
                         })
                         // this.updatePageState(this.state.fullData)
                     })
@@ -328,7 +338,7 @@ class Page extends Component {
     // check which markup to render- run inside render func
     renderBodyContent(){
         // if comments Page
-        if(utils.checkRoute('/comments')){
+        if(utils.checkRoute('comments')){
             // if state is loaded
             if(utils.checkLoaded(this.state.fullComments)){
                 // console.log('chunk',this.state.chunkComments)
@@ -343,7 +353,7 @@ class Page extends Component {
                         <div> Fetching Comments API Data </div>
                     )
             }
-        } else if(utils.checkRoute('/shownew')){
+        } else if(utils.checkRoute('shownew')){
             if(utils.checkLoaded(this.state.stories)){
                 return(<div>
                     {console.log('Render - show new')}{" "}
@@ -380,7 +390,7 @@ class Page extends Component {
 	//     utils.elementsRandomColor(tds)
 	// }
     clickFunc() {
-        if(utils.checkRoute('/comments')){
+        if(utils.checkRoute('comments')){
             this.updatePageState(this.state.fullComments, "chunkComments")
             // console.log('state', this.state)
         } else {

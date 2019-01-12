@@ -1,12 +1,12 @@
 import React from 'react'
-import { BrowserRouter, Route, Link, Switch } from "react-router-dom"
+import { HashRouter, BrowserRouter, Route, Link, Switch } from "react-router-dom"
 import Page from './Page'
 import utils from '../utils'
 
 
 function Router(){
     return(
-        <BrowserRouter>
+        <HashRouter basename={process.env.PUBLIC_URL}>
         <div>
             <Route exact path="/" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")} />}/>
             <Route path="/newest" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty")} />}/>
@@ -17,7 +17,7 @@ function Router(){
             <Route path="/comments" component={Page}/>
             <Route path="/best" component={() => <Page data={utils.fetchData("https://hacker-news.firebaseio.com/v0/beststories.json?print=pretty")} />}/>
         </div>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 

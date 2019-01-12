@@ -54,9 +54,22 @@ function fetchData(url) {
 	// })
 }
 // check if this route
-function checkRoute(route){
-    let pathname = window.location.pathname
-    return (pathname === route ? true : false)
+function checkRoute(routeName){
+    // if(process.env.NODE_ENV === "development"){
+        routeName = `#/${routeName}`
+        console.log('route', routeName)
+        let hash = window.location.hash
+        console.log('hash', hash)
+
+        return (hash === routeName ? true : false)
+    // } else if(process.env.NODE_ENV === "production"){
+    //     routeName = `#/${routeName}`
+    //     console.log('prod', routeName)
+    //     let hash = window.location.hash
+    //     return (hash === routeName ? true : false)
+    // } else {
+    //     console.error('no NODE_ENV')
+    // }
 }
 // get max id and 100 previous
 function walkBackComments() {
