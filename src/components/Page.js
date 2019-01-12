@@ -309,7 +309,8 @@ class Page extends Component {
                         let obj = this.paginate(this.state.fullData)
                         // set first 30 to state
                         this.setState({
-                            chunkData: obj
+                            chunkData: obj,
+                            counter: obj.counter
                         })
                         // this.updatePageState(this.state.fullData)
                     })
