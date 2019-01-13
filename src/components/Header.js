@@ -6,7 +6,6 @@ function Header(props) {
         if(process.env.NODE_ENV === "development"){
             index = "/index"
         } else if(process.env.NODE_ENV === "production"){
-            console.log('prod')
             index = `https://chrisdel101.github.io`
         } else {
             console.error('No NODE_ENV set')

@@ -116,37 +116,15 @@ class Page extends Component {
                             }
                         }
                     })
-                    //push resolved promises into another array
                 })
             ).then(items => {
                 if(dataToGet === 'comment'){
-                    // // filter out undefined
-                    // let comments = items.filter(obj => obj)
-                    // // console.log('c', comments)
-                    // // push all comments to state
-                    // this.setState({
-                    //     fullComments: [...comments]
-                    // })
-                    // // paginate comments on load
-                    // let obj = utils.paginate(this.state.fullComments)
-                    // console.log('original obj', obj.indexes)
-                    // // set first 30 to state
-                    // this.setState({
-                    //     chunkComments: obj
-                    // })
-                    // filter out undefined
                     // filter out undefined
                     let comments = items.filter(obj => obj)
-                    console.log('c', comments)
-                    // push all comments to state
+                    // return paginate obj
                     let counterAndChunk = this.paginate(comments)
-                    console.log('counterAndChunk', counterAndChunk)
+                    // console.log('counterAndChunk', counterAndChunk)
                     this.setState({
-                        // return {
-                        //     chunkComments: chunk,
-                        //     counter: count,
-                        //     indexes: indexes
-                        // }
                         fullComments: [...comments],
                         chunkComments: [...counterAndChunk.chunkComments],
                         counter: counterAndChunk.counter,
@@ -159,14 +137,8 @@ class Page extends Component {
                         if(item){
                             console.log(item.title)
                         }
-                        // if(item.type === 'story'){
-                            // console.log(/^Show HN:/.test(item.title))
-                        // }
                     })
-                    // this.setState(prevState => ({
-                    //     comments: [...prevState.comments, comments]
-                    // }))
-
+                        
                 } else {
                     console.error(`Error: fetch type needed`)
                 }
@@ -183,8 +155,7 @@ class Page extends Component {
                     return utils.getStory(id).then(obj => {
                         // reject nulls
                         return obj
-                    });
-                    //push resolved promises into another array
+                    })
                 })
             ).then(stories => {
                 stories = stories.sort((a, b) => {
@@ -232,9 +203,6 @@ class Page extends Component {
             } else {
                 let hash = window.location.hash
                 let elem = document.querySelector(`[href='/hackernews/${hash}']`)
-                // let elem = document.querySelector("a[href=/hackernews/" + "'/" + hash + "'" + "]")
-                console.log()
-                console.log('elem', elem)
                 elem.style.color = "#ffffff"
             }
 
@@ -246,7 +214,7 @@ class Page extends Component {
         if(utils.checkRoute('comments')){
             arr = state.fullComments
             let newState = this.paginate(arr)
-            console.log('new', newState.chunkComments)
+            // console.log('new', newState.chunkComments)
             this.setState({
                 chunkComments: newState.chunkComments,
                 counter: newState.counter,
@@ -254,8 +222,6 @@ class Page extends Component {
             })
         } else {
             arr = state.fullData
-            console.log('a', arr)
-            // arr = state.chunkComments
             let newState = this.paginate(arr)
             console.log('new', newState)
             this.setState({
@@ -263,27 +229,7 @@ class Page extends Component {
                 counter: newState.counter
             })
         }
-        // let newState = this.paginate(arr)
-        // console.log('newState', newState)
-        // this.setState({
-        //     [stateKey]: newState
-        // })
-        // this.setState(newState)
-        //console.log('new state', this.state)
     }
-    //fired onclick pass in arr to be sliced
-    // updatePageState(arr, stateKey){
-    //     console.log('fired')
-    //     let obj = this.paginate(arr)
-    //     console.log('paginate obj', obj)
-    //     console.log('datakey', stateKey)
-    //     // use [] to set string in key
-    //     this.setState({
-    //         [stateKey]: obj
-    //     })
-    //     // console.log('state', this.state.stateKey)
-    //     console.log('state', this.state[stateKey])
-    // }
 	componentDidMount() {
         this.colorLinks()
         // check if comments route
@@ -295,21 +241,8 @@ class Page extends Component {
             this.getData("show")
             // console.log('show', this.state)
 		} else {
-            // console.log('TEST ABOVE')
 			console.log("not comments")
-
-
-            // push entire array of props to state
 			this.props.data.then(result => {
-                // load full data
-                // console.log('c', comments)
-                // push all comments to state
-                // let counterAndChunk = this.paginate(result)
-                // this.setState({
-                //     fullDate: [...result],
-                //     ...counterAndChunk
-                // })
-                // console.log('state', this.state)
 					this.setState({
 						fullData: result
 					}, () => {
@@ -320,7 +253,6 @@ class Page extends Component {
                             chunkData: obj,
                             counter: obj.counter
                         })
-                        // this.updatePageState(this.state.fullData)
                     })
 				})
 				.catch(e => console.error(`error: ${e}`));
@@ -349,7 +281,6 @@ class Page extends Component {
         if(utils.checkRoute('comments')){
             // if state is loaded
             if(utils.checkLoaded(this.state.fullComments)){
-                // console.log('chunk',this.state.chunkComments)
                 return(<div>
                     <this.ShowPageText />
                     {console.log('Render - Comment')}{" "}

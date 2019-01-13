@@ -45,13 +45,6 @@ function fetchData(url) {
 			resolve(arr)
 		}, 2000)
 	})
-	// .then(res => {
-	//     console.log('res', res)
-	//     return res
-	// })
-	//     .catch(e => {
-	//     console.error(`An error: ${e}`)
-	// })
 }
 // check if this route
 function checkRoute(routeName){
@@ -88,11 +81,7 @@ function walkBackComments() {
 			return objs
 		})
 }
-// walkBackComments().then(arr => {
-//     arr.forEach(i => {
-//         i.then(j => console.log(j))
-//     })
-// })
+
 function unixConverter(UNIX_timestamp) {
 	// https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
 	let a = new Date(UNIX_timestamp * 1000)
@@ -209,31 +198,6 @@ const countBy30 = (function () {
 function range(start, stop, step){
     return  Array.from({ length: (stop - start) / step }, (_, i) => start + (i * step))
 }
-// function paginate(arr){
-//     // console.log('paginate')
-//     let count = countBy30()
-//     // console.log(count)
-//     let sliceStart = count - 30
-//     let sliceEnd = count
-//     let indexes = range(sliceStart+1, sliceEnd+1, 1)
-//     let chunk = arr.slice(sliceStart, sliceEnd)
-//     return {
-//         data: chunk,
-//         indexes: indexes
-//     }
-// }
-function paginate(arr) {
-    //increment and get current count
-        let count = this.state.counter + 30;
-        console.log('count', count)
-        let sliceStart = count - 30
-/* console.log('start', sliceStart)
- */        let sliceEnd = count
-/* console.log('end', sliceEnd) */
-        let chunk = arr.slice(sliceStart, sliceEnd)
-        /* console.log('chunk', chunk) */
-        return {chunkComments: chunk, counter: count};
-    }
 
 module.exports = {
     range: range,
@@ -250,5 +214,4 @@ module.exports = {
     checkLoaded: checkLoaded,
     filterShowStories: filterShowStories,
     encodeStr: encodeStr,
-    paginate: paginate
 }
