@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/hackernews/static/js/runtime~main.da160233.js"
   },
   {
-    "revision": "79eea927773f3663377c",
-    "url": "/hackernews/static/js/main.79eea927.chunk.js"
+    "revision": "5e73df09f448652489a1",
+    "url": "/hackernews/static/js/main.5e73df09.chunk.js"
   },
   {
     "revision": "31edb0ddf58bcacc3b80",
     "url": "/hackernews/static/js/1.31edb0dd.chunk.js"
   },
   {
-    "revision": "79eea927773f3663377c",
+    "revision": "5e73df09f448652489a1",
     "url": "/hackernews/static/css/main.c10677fd.chunk.css"
   },
   {
-    "revision": "9d018549f47b39caea21d2e102598803",
+    "revision": "59b289975e2da36a63a4e60df1305973",
     "url": "/hackernews/index.html"
   }
 ];
