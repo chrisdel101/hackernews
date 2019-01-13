@@ -226,11 +226,18 @@ class Page extends Component {
 
     colorLinks(){
         if(process.env.NODE_ENV === 'production'){
-            let hash = window.location.hash
-            let elem = document.querySelector(`[href='/hackernews/${hash}']`)
-            // let elem = document.querySelector("a[href=/hackernews/" + "'/" + hash + "'" + "]")
-            console.log('elem', elem)
-            // elem.style.color = "#ffffff"
+            // don't query on index route
+            if(window.location.hash === '#/'){
+                return
+            } else {
+                let hash = window.location.hash
+                let elem = document.querySelector(`[href='/hackernews/${hash}']`)
+                // let elem = document.querySelector("a[href=/hackernews/" + "'/" + hash + "'" + "]")
+                console.log()
+                console.log('elem', elem)
+                // elem.style.color = "#ffffff"
+            }
+
         }
     }
     updatePageState(state) {
