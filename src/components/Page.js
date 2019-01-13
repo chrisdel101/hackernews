@@ -228,7 +228,7 @@ class Page extends Component {
         let hash = window.location.hash
         let elem = document.querySelector("a[href=" + "'/" + hash + "'" + "]")
         console.log('elem', elem)
-        elem.style.color = "#ffffff"
+        // elem.style.color = "#ffffff"
     }
     updatePageState(state) {
         console.log('update', state)
