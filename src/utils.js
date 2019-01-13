@@ -57,9 +57,9 @@ function fetchData(url) {
 function checkRoute(routeName){
     // if(process.env.NODE_ENV === "development"){
         routeName = `#/${routeName}`
-        console.log('route', routeName)
+        // console.log('route', routeName)
         let hash = window.location.hash
-        console.log('hash', hash)
+        // console.log('hash', hash)
 
         return (hash === routeName ? true : false)
     // } else if(process.env.NODE_ENV === "production"){

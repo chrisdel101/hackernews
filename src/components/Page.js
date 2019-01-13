@@ -200,7 +200,7 @@ class Page extends Component {
         // console.log('Arr', arr)
     //increment and get current count
         let count = this.state.counter + 30
-        console.log('count', count)
+        // console.log('count', count)
         let sliceStart = count - 30
  // console.log('start', sliceStart)
      let sliceEnd = count
@@ -225,8 +225,9 @@ class Page extends Component {
     }
 
     colorLinks(){
-        let route = window.location.pathname
-        let elem = document.querySelector("a[href="+ "'" + route + "'" + "]")
+        let hash = window.location.hash
+        let elem = document.querySelector("a[href=" + "'/" + hash + "'" + "]")
+        console.log('elem', elem)
         elem.style.color = "#ffffff"
     }
     updatePageState(state) {
@@ -274,9 +275,8 @@ class Page extends Component {
     //     console.log('state', this.state[stateKey])
     // }
 	componentDidMount() {
-        // this.colorLinks()
+        this.colorLinks()
         // check if comments route
-        console.log(utils.checkRoute('comments'))
 		if (utils.checkRoute('comments')) {
 			// get comments and set state
 			this.getData("comment")
@@ -287,9 +287,7 @@ class Page extends Component {
 		} else {
             // console.log('TEST ABOVE')
 			console.log("not comments")
-            console.log("props", this.props)
-            console.log("env", process.env)
-            console.log('HASH')
+
 
             // push entire array of props to state
 			this.props.data.then(result => {
@@ -383,18 +381,6 @@ class Page extends Component {
                 )
             }
 
-        }
-    }
-	// change() {
-	//     let tds = document.querySelectorAll('td')
-	//     utils.elementsRandomColor(tds)
-	// }
-    clickFunc() {
-        if(utils.checkRoute('comments')){
-            this.updatePageState(this.state.fullComments, "chunkComments")
-            // console.log('state', this.state)
-        } else {
-            this.updatePageState(this.state.fullData, "chunkData")
         }
     }
 	render() {

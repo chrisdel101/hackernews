@@ -1,26 +1,28 @@
 import React from 'react'
 
 function Header(props) {
-    let index
-    if(process.env.NODE_ENV === "development"){
-        console.log('dev')
-        index = "/index"
-    } else if(process.env.NODE_ENV === "production"){
-        console.log('prod')
-        index = `https://chrisdel101.github.io`
-    } else {
-        console.error('No NODE_ENV set')
+    function setIndex(){
+        let index
+        if(process.env.NODE_ENV === "development"){
+            index = "/index"
+        } else if(process.env.NODE_ENV === "production"){
+            console.log('prod')
+            index = `https://chrisdel101.github.io`
+        } else {
+            console.error('No NODE_ENV set')
+        }
+        return index
     }
 	return (<div className="Header">
         <div className="header-cell logo">
                 {/*<a href={window.location.host + '/' + process.env.PUBLIC_URL}>*/}
-                <a href={index + process.env.PUBLIC_URL}>
+                <a href={setIndex() + process.env.PUBLIC_URL}>
 
                 <img src="https://news.ycombinator.com/y18.gif"/>
             </a>
         </div>
 		<div className="header-cell app-name">
-            <a href={index + process.env.PUBLIC_URL}>
+            <a href={setIndex() + process.env.PUBLIC_URL}>
                 <strong>{props.Appname}</strong>
             </a>
         </div>
