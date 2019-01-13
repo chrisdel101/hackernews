@@ -235,7 +235,7 @@ class Page extends Component {
                 // let elem = document.querySelector("a[href=/hackernews/" + "'/" + hash + "'" + "]")
                 console.log()
                 console.log('elem', elem)
-                // elem.style.color = "#ffffff"
+                elem.style.color = "#ffffff"
             }
 
         }
