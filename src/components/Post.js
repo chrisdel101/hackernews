@@ -9,35 +9,11 @@ function Post(props) {
     let indexes
     let posts = props.data
     // console.log('posts', posts)
-    // if props.data an object, set up indexes
+    // if props.data an object, reassign to fit
     if(!(Array.isArray(props.data)) && typeof "object") {
         indexes = props.data.indexes
         posts = props.data.chunkData
     }
-    // if an array bypass the above
-    // function ComponentMarkup(post){
-    //     post = post.post
-    //     return(<div className={`Post ${utils.checkRoute('comments') ? 'comment' : ''}`}>
-    //
-    //         <div className="subtext post-child">
-    //             <div className="vote">
-    //                 <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
-    //             </div>
-    //             <div className="by">
-    //                 {post.by}
-    //             </div>
-    //
-    //             <span className="parent">
-    //             {''}
-    //                 <a href={`https://news.ycombinator.com/item?id=${post.parent}`}>&nbsp;parent</a>
-    //             </span>
-    //             {''}
-    //
-    //
-    //         </div>
-    //
-    //     </div>)
-    // }
     function renderMarkup(post, index){
         // console.log('POST', post)
         if(!utils.checkRoute('comments')){

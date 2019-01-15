@@ -92,6 +92,7 @@ class Page extends Component {
     // use to get data if not passed in my router
     getData(dataToGet) {
         utils.getAPI("https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty")
+        // get single max number
         .then(maxNum => {
             //	 insert ids into URL - get array of promises
             Promise.all(
@@ -100,12 +101,15 @@ class Page extends Component {
                         length: 100
                     },
                     (_, i) => maxNum - i
+                    // subtract one from max, get 100 top nums
                 ).map(id => {
-                        // check which route it is being called in with flag - comment or non-comment
-                    return utils.getStory(id).then(obj => {
+                    return utils.getStory(id)
+                    .then(obj => {
                         // reject nulls here
                         if (obj) {
+                            // use func to get comments
                             if(dataToGet === "comment"){
+                                // filter out by type
                                 if (obj.type === "comment") {
                                     return obj;
                                 }
@@ -257,7 +261,7 @@ class Page extends Component {
 	}
 	// render piece of text on show page
 	ShowPageText() {
-		if (window.location.pathname === "/show") {
+		if (utils.checkRoute('show')) {
 			return (
 				<div className="show-added-text">
 					Please read the{" "}
