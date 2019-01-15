@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Header(props) {
-    function setIndex(){
+    function setIndexRoute(){
         let index
         if(process.env.NODE_ENV === "development"){
             index = "/index"
@@ -15,13 +15,13 @@ function Header(props) {
 	return (<div className="Header">
         <div className="header-cell logo">
                 {/*<a href={window.location.host + '/' + process.env.PUBLIC_URL}>*/}
-                <a href={setIndex() + process.env.PUBLIC_URL}>
+                <a href={setIndexRoute() + process.env.PUBLIC_URL}>
 
                 <img src="https://news.ycombinator.com/y18.gif"/>
             </a>
         </div>
 		<div className="header-cell app-name">
-            <a href={setIndex() + process.env.PUBLIC_URL}>
+            <a href={setIndexRoute() + process.env.PUBLIC_URL}>
                 <strong>{props.Appname}</strong>
             </a>
         </div>

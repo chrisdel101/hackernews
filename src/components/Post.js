@@ -15,9 +15,10 @@ function Post(props) {
         posts = props.data.chunkData || props.data.chunkShowNew
     }
     // if array inside array - do this
-    if(Array.isArray(props.data)){
+    if(Array.isArray(props.data[0])){
         posts = props.data[0]
     }
+    console.log('posts', posts)
     function renderMarkup(post, index){
         // console.log('POST', post)
         if(!utils.checkRoute('comments')){

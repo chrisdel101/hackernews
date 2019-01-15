@@ -43,6 +43,10 @@ class Page extends Component {
                 {
                     link: "submit",
                     url: "https://news.ycombinator.com/submit"
+                },
+                {
+                    link: "shownew",
+                    url: `${process.env.PUBLIC_URL}/#/shownew`
                 }
             ],
             footerLinks: [
@@ -153,7 +157,6 @@ class Page extends Component {
                                 //     return item
                                 // }
                             }
-                            // if()
                         }
                     })
                 } else {
@@ -237,7 +240,25 @@ class Page extends Component {
                 let elem = document.querySelector(`[href='/hackernews/${hash}']`)
                 elem.style.color = "#ffffff"
             }
+        } else if(process.env.NODE_ENV === 'development'){
+            if(window.location.hash === '#/'){
+                return
+            } else {
+                let hash = window.location.hash
+                console.log(hash)
+                let elem = document.querySelector(`[href='${hash}']`)
+                console.log(elem)
+                // elem.style.color = "#ffffff"
+            }
+        }
+    }
+    showNewLink(){
+        if(utils.checkRoute('shownew')){
+            if(process.env.NODE_ENV === 'development'){
+                let elem = document.querySelector(`[href='#/shownew']`)
+                console.log(elem)
 
+            }
         }
     }
     updatePageState(state) {
@@ -253,11 +274,10 @@ class Page extends Component {
             })
         } else if(utils.checkRoute('shownew')){
             let arr = state.fullShowNew
+            // if nested arrays, index into
             if(Array.isArray(arr[0])){
                 arr = state.fullShowNew[0]
             }
-            // let arr = state.fullShowNew[0]
-            console.log('a', arr)
             let newState = this.paginate(arr)
             console.log('new', newState)
             this.setState({
@@ -275,6 +295,7 @@ class Page extends Component {
         }
     }
 	componentDidMount() {
+        this.showNewLink()
         this.colorLinks()
         // check if comments route
 		if (utils.checkRoute('comments')) {
@@ -303,7 +324,7 @@ class Page extends Component {
 				.catch(e => console.error(`error: ${e}`));
 		}
 	}
-	// render piece of text on show page
+	// render piece of text on show page - to shownew
 	ShowPageText() {
 		if (utils.checkRoute('show')) {
 			return (
