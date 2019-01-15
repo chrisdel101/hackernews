@@ -245,17 +245,15 @@ class Page extends Component {
                 return
             } else {
                 let hash = window.location.hash
-                console.log(hash)
-                let elem = document.querySelector(`[href='${hash}']`)
-                console.log(elem)
-                // elem.style.color = "#ffffff"
+                let elem = document.querySelector(`[href='/${hash}']`)
+                elem.style.color = "#ffffff"
             }
         }
     }
     showNewLink(){
         if(utils.checkRoute('shownew')){
             if(process.env.NODE_ENV === 'development'){
-                let elem = document.querySelector(`[href='#/shownew']`)
+                let elem = document.querySelector(`[href='/#/shownew']`)
                 console.log(elem)
 
             }
@@ -358,7 +356,6 @@ class Page extends Component {
                     )
             }
         } else if(utils.checkRoute('shownew')){
-            console.log('shownew')
             if(utils.checkLoaded(this.state.fullShowNew)){
                 return(<div>
                     {console.log('Render - show new')}{" "}
