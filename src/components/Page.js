@@ -123,29 +123,27 @@ class Page extends Component {
                     let comments = items.filter(obj => obj)
                     // return paginate obj
                     let counterAndChunk = this.paginate(comments)
-                    // console.log('counterAndChunk', counterAndChunk)
+
                     this.setState({
                         fullComments: [...comments],
                         chunkComments: [...counterAndChunk.chunkComments],
                         counter: counterAndChunk.counter,
                         indexes:  counterAndChunk.indexes
                     })
-                    console.log('state', this.state)
+                    // console.log('state', this.state)
                 } else if(dataToGet === 'show'){
-                    console.log('show')
                     let newShows = items.map((item) => {
                         if(item){
                             console.log(item.title)
                         }
                     })
-                        
                 } else {
                     console.error(`Error: fetch type needed`)
                 }
             })
         })
     }
-
+    // used to try and get newest stories
     filterShowStories(){
         utils.getAPI(" https://hacker-news.firebaseio.com/v0/showstories.json?print=pretty")
         .then(stories => {
@@ -209,7 +207,6 @@ class Page extends Component {
         }
     }
     updatePageState(state) {
-        console.log('update', state)
         let arr
         if(utils.checkRoute('comments')){
             arr = state.fullComments
