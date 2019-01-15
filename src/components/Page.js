@@ -18,7 +18,7 @@ class Page extends Component {
 			chunkComments: [],
             fullShowNew: [],
             chunkShowNew: [],
-            stories: "",
+            stories: [],
             headerLinks: [
                 {
                     link: "new",
@@ -162,7 +162,7 @@ class Page extends Component {
             })
         })
     }
-    // used to try and get newest stories
+    // sorts stories by time - get newest stories
     filterShowStories(){
         utils.getAPI(" https://hacker-news.firebaseio.com/v0/showstories.json?print=pretty")
         .then(stories => {
@@ -182,7 +182,7 @@ class Page extends Component {
                 let counterAndChunk = this.paginate(stories)
                 console.log(counterAndChunk)
                 this.setState(prevState => ({
-                    stories: [...prevState.stories, stories],
+                    fullShowNew: [...prevState.stories, stories],
                     chunkShowNew: counterAndChunk,
                     counter: counterAndChunk.counter
                     // chunkShowNew: counterAndChunk.chunkData,
@@ -193,7 +193,7 @@ class Page extends Component {
         })
     }
     paginate(arr) {
-        // console.log('Arr', arr)
+        console.log('Arr', arr)
     //increment and get current count
         let count = this.state.counter + 30
         // console.log('count', count)
@@ -207,6 +207,13 @@ class Page extends Component {
         if(utils.checkRoute('comments')){
             return {
                 chunkComments: chunk,
+                counter: count,
+                indexes: indexes
+            }
+        } else if(utils.checkRoute('shownew')){
+            console.log('chunk', chunk)
+            return {
+                chunkShowNew: chunk,
                 counter: count,
                 indexes: indexes
             }
@@ -234,9 +241,9 @@ class Page extends Component {
         }
     }
     updatePageState(state) {
-        let arr
+        // let arr
         if(utils.checkRoute('comments')){
-            arr = state.fullComments
+            let arr = state.fullComments
             let newState = this.paginate(arr)
             // console.log('new', newState.chunkComments)
             this.setState({
@@ -244,8 +251,21 @@ class Page extends Component {
                 counter: newState.counter,
                 indexes: newState.indexes
             })
+        } else if(utils.checkRoute('shownew')){
+            let arr = state.fullShowNew
+            if(Array.isArray(arr[0])){
+                arr = state.fullShowNew[0]
+            }
+            // let arr = state.fullShowNew[0]
+            console.log('a', arr)
+            let newState = this.paginate(arr)
+            console.log('new', newState)
+            this.setState({
+                chunkShowNew: newState,
+                counter: newState.counter
+            })
         } else {
-            arr = state.fullData
+            let arr = state.fullData
             let newState = this.paginate(arr)
             console.log('new', newState)
             this.setState({
@@ -265,7 +285,6 @@ class Page extends Component {
             // this.getData("shownew")
             // console.log('show', this.state)
             this.filterShowStories()
-            console.log('state', this.state)
 		} else {
 			console.log("not comments")
 			this.props.data.then(result => {
@@ -319,7 +338,7 @@ class Page extends Component {
             }
         } else if(utils.checkRoute('shownew')){
             console.log('shownew')
-            if(utils.checkLoaded(this.state.stories)){
+            if(utils.checkLoaded(this.state.fullShowNew)){
                 return(<div>
                     {console.log('Render - show new')}{" "}
                     <Post data={this.state.chunkShowNew} />{" "}

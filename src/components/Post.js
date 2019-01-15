@@ -12,7 +12,7 @@ function Post(props) {
     // if props.data an object - do this
     if(!(Array.isArray(props.data)) && typeof "object") {
         indexes = props.data.indexes
-        posts = props.data.chunkData
+        posts = props.data.chunkData || props.data.chunkShowNew
     }
     // if array inside array - do this
     if(Array.isArray(props.data)){
