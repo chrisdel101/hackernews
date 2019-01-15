@@ -159,6 +159,8 @@ function checkLoaded(item){
         return !item.length ? false : true
     } else if(!(Array.isArray(item)) && typeof "object") {
         return !isEmpty(item)
+    } else if(typeof item === 'string'){
+        return !item.length ? false : true
     }
 }
 

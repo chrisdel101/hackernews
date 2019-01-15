@@ -5,14 +5,18 @@ import utils from '../utils'
 
 // Post takes an array or an object. Login sorts them
 function Post(props) {
-    // console.log('props', props)
+    console.log('props', props)
     let indexes
     let posts = props.data
     // console.log('posts', posts)
-    // if props.data an object, reassign to fit
+    // if props.data an object - do this
     if(!(Array.isArray(props.data)) && typeof "object") {
         indexes = props.data.indexes
         posts = props.data.chunkData
+    }
+    // if array inside array - do this
+    if(Array.isArray(props.data)){
+        posts = props.data[0]
     }
     function renderMarkup(post, index){
         // console.log('POST', post)

@@ -16,6 +16,8 @@ class Page extends Component {
             chunkData: [],
             fullComments: [],
 			chunkComments: [],
+            fullShowNew: [],
+            chunkShowNew: [],
             stories: "",
             headerLinks: [
                 {
@@ -90,7 +92,7 @@ class Page extends Component {
 
     }
     // use to get data if not passed in my router
-    getData(dataToGet) {
+    getData(dataToGet, numToGet) {
         utils.getAPI("https://hacker-news.firebaseio.com/v0/maxitem.json?print=pretty")
         // get single max number
         .then(maxNum => {
@@ -98,7 +100,7 @@ class Page extends Component {
             Promise.all(
                 Array.from(
                     {
-                        length: 100
+                        length: numToGet || 100
                     },
                     (_, i) => maxNum - i
                     // subtract one from max, get 100 top nums
@@ -113,7 +115,7 @@ class Page extends Component {
                                 if (obj.type === "comment") {
                                     return obj;
                                 }
-                            } else if(dataToGet === "show"){
+                            } else if(dataToGet === "shownew"){
                                 if(obj.type !== "comment"){
                                     return obj
                                 }
@@ -127,7 +129,6 @@ class Page extends Component {
                     let comments = items.filter(obj => obj)
                     // return paginate obj
                     let counterAndChunk = this.paginate(comments)
-
                     this.setState({
                         fullComments: [...comments],
                         chunkComments: [...counterAndChunk.chunkComments],
@@ -135,10 +136,24 @@ class Page extends Component {
                         indexes:  counterAndChunk.indexes
                     })
                     // console.log('state', this.state)
-                } else if(dataToGet === 'show'){
-                    let newShows = items.map((item) => {
+                } else if(dataToGet === 'shownew'){
+                    console.log('show')
+                    let showNews = items.map((item) => {
+                        // filter undefined
                         if(item){
-                            console.log(item.title)
+                            // filter out comments
+                            if(item.type === 'story'){
+                                // let re = /^Show HN/i
+                                // check if starts with SHOW HN
+                                // console.log(item.title)
+                                this.filterShowStories()
+                                console.log('state', this.state)
+                                // if(re.test(item.title)){
+                                //     console.log(item)
+                                //     return item
+                                // }
+                            }
+                            // if()
                         }
                     })
                 } else {
@@ -160,11 +175,19 @@ class Page extends Component {
                     })
                 })
             ).then(stories => {
+                // console.log(stories)
                 stories = stories.sort((a, b) => {
                     return a.time - b.time
                 }).reverse()
+                let counterAndChunk = this.paginate(stories)
+                console.log(counterAndChunk)
                 this.setState(prevState => ({
-                    stories: [...prevState.stories, stories]
+                    stories: [...prevState.stories, stories],
+                    chunkShowNew: counterAndChunk,
+                    counter: counterAndChunk.counter
+                    // chunkShowNew: counterAndChunk.chunkData,
+                    // counter: counterAndChunk.count,
+                    // indexes: counterAndChunk.indexes
                 }))
             })
         })
@@ -239,8 +262,10 @@ class Page extends Component {
 			this.getData("comment")
             // if not comments do this
         } else if(utils.checkRoute('shownew')){
-            this.getData("show")
+            // this.getData("shownew")
             // console.log('show', this.state)
+            this.filterShowStories()
+            console.log('state', this.state)
 		} else {
 			console.log("not comments")
 			this.props.data.then(result => {
@@ -267,8 +292,7 @@ class Page extends Component {
 					Please read the{" "}
 					<a href="https://news.ycombinator.com/showhn.html"> rules</a>. You can
 					also browse the{" "}
-					<a href="/shownew">newest
-					</a>{" "}
+					<a href={process.env.PUBLIC_URL + "/#/shownew"}>newest</a>{" "}
 					Show HNs.{" "}
 				</div>
 			)
@@ -290,14 +314,15 @@ class Page extends Component {
                 )
             } else {
                 return(
-                        <div> Fetching Comments API Data </div>
+                        <div> Fetching Comments Data </div>
                     )
             }
         } else if(utils.checkRoute('shownew')){
+            console.log('shownew')
             if(utils.checkLoaded(this.state.stories)){
                 return(<div>
                     {console.log('Render - show new')}{" "}
-                    <Post data={this.state.stories} />{" "}
+                    <Post data={this.state.chunkShowNew} />{" "}
                     </div>
                 )
             }
