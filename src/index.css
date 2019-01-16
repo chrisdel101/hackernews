@@ -170,11 +170,24 @@ footer {
 	color: #ffffff;
 }
 
-/* exclude last one in list */
-.header-link:not(:nth-child(6)) {
+/* exclude last one in list normally */
+.header-link:not(:nth-child(6)):not(:nth-child(7)) {
 	border-right: black 1px solid;
 }
 
+/* add it if not the last one */
+.header-link.active:nth-child(6) {
+	border-right: black 1px solid;
+}
+
+a[href='/#/shownew'] {
+	pointer-events: none;
+}
+
+/* if 7th, not border */
+/* .header-link:not(:nth-child(7)) {
+	border-right: black 1px solid;
+} */
 .rank {
 	color: #828282
 }
@@ -375,7 +388,7 @@ footer {
 
 @media (min-width: 615px) and (max-width:768px) {
 	.app-name, .header-links {
-		right: 32px;
+		right: 10px;
 	}
 
 	/* .title {

@@ -250,12 +250,18 @@ class Page extends Component {
             }
         }
     }
+    // show 'shownew' at correct time
     showNewLink(){
         if(utils.checkRoute('shownew')){
             if(process.env.NODE_ENV === 'development'){
-                let elem = document.querySelector(`[href='/#/shownew']`)
-                let parent = elem.parentElement
-                parent.classList.add('active')
+                let shownew = document.querySelector(`[href='/#/shownew']`)
+                let showParent = shownew.parentElement
+                showParent.classList.add('active')
+                // add to 'submit' to remove border
+                let submit = document.querySelector(`[href='https://news.ycombinator.com/submit']`)
+                let submitParent = submit.parentElement
+                submitParent.classList.add('active')
+
             }
         }
     }
