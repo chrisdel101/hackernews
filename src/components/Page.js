@@ -381,7 +381,7 @@ class Page extends Component {
                 }
             } else {
                 return(
-                    <div> Fetching Data API Data </div>
+                    <div> Fetching API Data </div>
                 )
             }
 

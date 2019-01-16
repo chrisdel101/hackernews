@@ -54,11 +54,11 @@ body {
 }
 
 /* hide only the one in the header */
-.header-cell div>a[href="/#/shownew"] {
+.header-cell a[href="/#/shownew"] {
 	display: none;
 }
 
-.header-cell div.active>a[href="/#/shownew"] {
+.header-cell.active>a[href="/#/shownew"] {
 	display: block;
 }
 
