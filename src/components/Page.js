@@ -254,8 +254,8 @@ class Page extends Component {
         if(utils.checkRoute('shownew')){
             if(process.env.NODE_ENV === 'development'){
                 let elem = document.querySelector(`[href='/#/shownew']`)
-                console.log(elem)
-
+                let parent = elem.parentElement
+                parent.classList.add('active')
             }
         }
     }

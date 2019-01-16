@@ -53,6 +53,15 @@ body {
 	grid-row: 1 /3;
 }
 
+/* hide only the one in the header */
+.header-cell div>a[href="/#/shownew"] {
+	display: none;
+}
+
+.header-cell div.active>a[href="/#/shownew"] {
+	display: block;
+}
+
 .Post.comment>.subtext {
 	/* display: inline-flex; */
 	font-size: 8pt;
