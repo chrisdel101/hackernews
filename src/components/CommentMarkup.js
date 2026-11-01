@@ -13,7 +13,6 @@ class CommentMarkup extends Component {
         this.index = props.post.index
         this.hostURL = props.post.hostURL
         this.getDiff = props.post.getDiff
-        // console.log('props', this.props )
 	}
     // goes up the tree until it find parent
     findOriginal(parentID){
@@ -28,7 +27,6 @@ class CommentMarkup extends Component {
                 return
             } else {
                 // call again with new parent val
-                // return 'none'
                 this.findOriginal(item.parent)
 
 
@@ -37,13 +35,8 @@ class CommentMarkup extends Component {
 
     }
     componentDidMount(){
-        // console.log('parent',this.props.post.post.parent)
         this.findOriginal(this.props.post.post.parent)
     }
-    // let origin = findOriginal(post.parent)
-    // // setTimeout(function(){
-    //     console.log('origin', origin)
-    // // },5000)
     slicer(str){
         if(!str){
             return false
@@ -58,12 +51,7 @@ class CommentMarkup extends Component {
     }
 
     render(){
-        // if(!this.post){
-        //     console.log('nothing')
-        //     return
-        // }
         let post = this.props.post.post
-        // console.log('post', post)
         return (
             <div className={`Post ${utils.checkRoute('comments') ? 'comment' : ''}`}>
 

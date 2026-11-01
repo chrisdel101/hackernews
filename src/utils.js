@@ -13,7 +13,6 @@ function randomHex() {
 function elementsRandomColor(elementsArray) {
 	elementsArray = Array.from(elementsArray)
 	elementsArray.map((elem) => {
-		console.log(elem)
 		return elem.style.backgroundColor = randomHex()
 	})
 
@@ -28,31 +27,15 @@ function getStory(id) {
 	return fetch(url).then(blob => blob.json()).then(json => json)
 }
 
+// returns a promise resolves to the array of ids - stories are fetched per page
 function fetchData(url) {
-	console.log("URL", url)
-	let arr = []
-	return new Promise((resolve, reject) => {
-		getTopIDs(url).then(array => {
-			array.map((id, index) => {
-				return id
-			}).map((id, index) => {
-				getStory(id).then(obj => {
-					arr.push(obj)
-				}).catch(e => console.error(e))
-			})
-		})
-		setTimeout(function() {
-			resolve(arr)
-		}, 2000)
-	})
+	return getTopIDs(url)
 }
 // check if this route
 function checkRoute(routeName){
     // works for both dev and prod
         routeName = `#/${routeName}`
-        // console.log('route', routeName)
         let hash = window.location.hash
-        // console.log('hash', hash)
         return (hash === routeName ? true : false)
 }
 // get max id and 100 previous
@@ -77,7 +60,6 @@ function walkBackComments() {
 						}
 					})
 			})
-			console.log('walk back okay')
 			return objs
 		})
 }
@@ -139,7 +121,6 @@ function hostURL(url) {
 	if(!url) {
 		return ''
 	}
-	// console.log(url)
 	let hostname
 	try {
 		hostname = new URL(url).hostname
@@ -176,7 +157,6 @@ function filterShowStories(){
     .then(stories => {
         Promise.all(
             stories.map(id => {
-                // console.log(id)
                 return getStory(id).then(obj => {
                     // reject nulls
                     return obj

@@ -16,7 +16,7 @@ function Header(props) {
         <div className="header-cell logo">
                 <a href={setIndexRoute() + process.env.PUBLIC_URL}>
 
-                <img src="https://news.ycombinator.com/y18.svg" alt="Home"/>
+                <img src="https://news.ycombinator.com/y18.svg" alt="Home" width="18" height="18"/>
             </a>
         </div>
 		<div className="header-cell app-name">

@@ -63,13 +63,11 @@ body {
 }
 
 .Post.comment>.subtext {
-	/* display: inline-flex; */
 	font-size: 8pt;
 	padding: 5px 0;
 }
 
 .Post.comment>.text-container {
-	/* display: inline-flex; */
 	padding-left: 1.3em;
 }
 
@@ -184,10 +182,6 @@ a[href='/#/shownew'] {
 	pointer-events: none;
 }
 
-/* if 7th, not border */
-/* .header-link:not(:nth-child(7)) {
-	border-right: black 1px solid;
-} */
 .rank {
 	color: #828282
 }
@@ -391,9 +385,6 @@ a[href='/#/shownew'] {
 		right: 10px;
 	}
 
-	/* .title {
-		max-width: 540px !important;
-	} */
 }
 
 /* MOBILE */
@@ -460,4 +451,8 @@ a[href='/#/shownew'] {
 	#host-url {
 		font-size: 11px;
 	}
+}
+/* reserve space while stories load so the footer does not jump */
+.loading {
+	min-height: 100vh;
 }

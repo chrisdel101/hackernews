@@ -4,7 +4,6 @@ import Header from "./Header";
 import Footer from "./Footer";
 import utils from "../utils";
 
-// import getJSON from "../utils"
 class Page extends Component {
 	constructor(props) {
 		super(props)
@@ -137,23 +136,13 @@ class Page extends Component {
                         counter: counterAndChunk.counter,
                         indexes:  counterAndChunk.indexes
                     })
-                    // console.log('state', this.state)
                 } else if(dataToGet === 'shownew'){
-                    console.log('show')
                     items.map((item) => {
                         // filter undefined
                         if(item){
                             // filter out comments
                             if(item.type === 'story'){
-                                // let re = /^Show HN/i
-                                // check if starts with SHOW HN
-                                // console.log(item.title)
                                 this.filterShowStories()
-                                console.log('state', this.state)
-                                // if(re.test(item.title)){
-                                //     console.log(item)
-                                //     return item
-                                // }
                             }
                         }
                     })
@@ -169,42 +158,31 @@ class Page extends Component {
         .then(stories => {
             Promise.all(
                 stories.map(id => {
-                    // console.log(id)
                     return utils.getStory(id).then(obj => {
                         // reject nulls
                         return obj
                     })
                 })
             ).then(stories => {
-                // console.log(stories)
                 stories = stories.sort((a, b) => {
                     return a.time - b.time
                 }).reverse()
                 let counterAndChunk = this.paginate(stories)
-                console.log('cc', counterAndChunk)
                 this.setState(prevState => ({
                     fullShowNew: [...prevState.stories, stories],
                     chunkShowNew: counterAndChunk,
                     counter: counterAndChunk.counter
-                    // chunkShowNew: counterAndChunk.chunkData,
-                    // counter: counterAndChunk.count,
-                    // indexes: counterAndChunk.indexes
                 }))
             })
         })
     }
     paginate(arr) {
-        console.log('Arr', arr)
     //increment and get current count
         let count = this.state.counter + 30
-        // console.log('count', count)
         let sliceStart = count - 30
- // console.log('start', sliceStart)
      let sliceEnd = count
-/* console.log('end', sliceEnd) */
         let indexes = utils.range(sliceStart+1, sliceEnd+1, 1)
         let chunk = arr.slice(sliceStart, sliceEnd)
-        /* console.log('chunk', chunk) */
         if(utils.checkRoute('comments')){
             return {
                 chunkComments: chunk,
@@ -212,7 +190,6 @@ class Page extends Component {
                 indexes: indexes
             }
         } else if(utils.checkRoute('shownew')){
-            console.log('chunk', chunk)
             return {
                 chunkShowNew: chunk,
                 counter: count,
@@ -264,11 +241,9 @@ class Page extends Component {
         }
     }
     updatePageState(state) {
-        // let arr
         if(utils.checkRoute('comments')){
             let arr = state.fullComments
             let newState = this.paginate(arr)
-            // console.log('new', newState.chunkComments)
             this.setState({
                 chunkComments: newState.chunkComments,
                 counter: newState.counter,
@@ -281,20 +256,26 @@ class Page extends Component {
                 arr = state.fullShowNew[0]
             }
             let newState = this.paginate(arr)
-            console.log('new', newState)
             this.setState({
                 chunkShowNew: newState,
                 counter: newState.counter
             })
         } else {
-            let arr = state.fullData
-            let newState = this.paginate(arr)
-            console.log('new', newState)
-            this.setState({
-                chunkData: newState,
-                counter: newState.counter
-            })
+            this.loadChunk(state.fullData)
         }
+    }
+    // LLM fullData holds ids - fetch only the 30 stories on this page
+    loadChunk(ids){
+        let obj = this.paginate(ids)
+        return Promise.all(obj.chunkData.map(id => utils.getStory(id)))
+        .then(stories => {
+            this.setState({
+                // filter out nulls
+                chunkData: {...obj, chunkData: stories.filter(story => story)},
+                counter: obj.counter
+            })
+        })
+        .catch(e => console.error(`error: ${e}`))
     }
 	componentDidMount() {
         this.showNewLink()
@@ -304,23 +285,15 @@ class Page extends Component {
 			// get comments and set state
 			this.getData("comment")
             // if not comments do this
-        } else if(utils.checkRoute('shownew')){
-            // this.getData("shownew")
-            // console.log('show', this.state)
+        } else if(utils.checkRoute('shownew')){            // this.getData("shownew")
             this.filterShowStories()
 		} else {
-			console.log("not comments")
 			this.props.data.then(result => {
 					this.setState({
 						fullData: result
 					}, () => {
-                        //paginate data on load
-                        let obj = this.paginate(this.state.fullData)
-                        // set first 30 to state
-                        this.setState({
-                            chunkData: obj,
-                            counter: obj.counter
-                        })
+                        // fetch first 30 stories
+                        this.loadChunk(this.state.fullData)
                     })
 				})
 				.catch(e => console.error(`error: ${e}`));
@@ -350,19 +323,17 @@ class Page extends Component {
             if(utils.checkLoaded(this.state.fullComments)){
                 return(<div>
                     <this.ShowPageText />
-                    {console.log('Render - Comment')}{" "}
                     <Post data={this.state.chunkComments} />{" "}
                     </div>
                 )
             } else {
                 return(
-                        <div> Fetching Comments Data </div>
+                        <div className="loading"> Fetching Comments Data </div>
                     )
             }
         } else if(utils.checkRoute('shownew')){
             if(utils.checkLoaded(this.state.fullShowNew)){
                 return(<div>
-                    {console.log('Render - show new')}{" "}
                     <Post data={this.state.chunkShowNew} />{" "}
                     </div>
                 )
@@ -370,22 +341,20 @@ class Page extends Component {
         } else {
             if(utils.checkLoaded(this.state.fullData)){
                 if(utils.checkLoaded(this.state.chunkData)){
-                    console.log('STATE', this.state)
                     return(<div>
                         <this.ShowPageText />
-                        {console.log('Render-Data')}{" "}
                         {" "}
                         <Post data={this.state.chunkData} />{" "}
                         </div>
                     )
                 } else {
                     return(
-                        <div> Fetching API Data </div>
+                        <div className="loading"> Fetching API Data </div>
                     )
                 }
             } else {
                 return(
-                    <div> Fetching API Data </div>
+                    <div className="loading"> Fetching API Data </div>
                 )
             }
 
