@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import utils from '../utils'
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 
 // takes an object with array of data and some functions
 class CommentMarkup extends Component {
@@ -9,7 +9,6 @@ class CommentMarkup extends Component {
 		this.state = {
 			original: ""
 		};
-        let that = this
 
         this.index = props.post.index
         this.hostURL = props.post.hostURL
@@ -63,7 +62,6 @@ class CommentMarkup extends Component {
         //     console.log('nothing')
         //     return
         // }
-        let originalPost = this.state.original.title
         let post = this.props.post.post
         // console.log('post', post)
         return (
@@ -71,7 +69,7 @@ class CommentMarkup extends Component {
 
             <div className="subtext post-child">
                 <div className="vote">
-                    <span><img src="https://news.ycombinator.com/grayarrow2x.gif"/></span>
+                    <span><img src="https://news.ycombinator.com/triangle.svg" alt="upvote"/></span>
                 </div>
                 <div className="by">
                     {post.by}

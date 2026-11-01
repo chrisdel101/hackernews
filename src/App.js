@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import Page from './components/Page'
 import Router from './components/Router'
 import './App.css';
 

@@ -4,7 +4,6 @@ import utils from '../utils'
 
 function PostMarkup(props){
     let post = props.post.post
-    // console.log('props', props.post)
     let index = props.post.index
     let hostURL = props.post.hostURL
     let getDiff = props.post.getDiff
@@ -28,7 +27,7 @@ function PostMarkup(props){
     { !utils.checkRoute('jobs') ?
     <div className="vote">
         <a href={`https://news.ycombinator.com/vote?id=${post.id}&how=up&goto=news`}>
-        <div><img src="https://news.ycombinator.com/grayarrow2x.gif"/></div>
+        <div><img src="https://news.ycombinator.com/triangle.svg" alt="upvote"/></div>
         </a>
     </div>: null
 

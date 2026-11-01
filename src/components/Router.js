@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter, BrowserRouter, Route, Link, Switch } from "react-router-dom"
+import { HashRouter, Route } from "react-router-dom"
 import Page from './Page'
 import utils from '../utils'
 
@@ -22,10 +22,3 @@ function Router(){
 }
 
 export default Router
-
-
-
-// <Route path="/newest" component={Newest}/>
-// <Route path="/show"   component={Show}/>
-// <Route path="/ask"    component={Ask}/>
-// <Route path="/job"    component={Job}/>

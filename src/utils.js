@@ -12,7 +12,7 @@ function randomHex() {
 
 function elementsRandomColor(elementsArray) {
 	elementsArray = Array.from(elementsArray)
-	let map = elementsArray.map((elem) => {
+	elementsArray.map((elem) => {
 		console.log(elem)
 		return elem.style.backgroundColor = randomHex()
 	})
@@ -29,7 +29,7 @@ function getStory(id) {
 }
 
 function fetchData(url) {
-	console.log(url)
+	console.log("URL", url)
 	let arr = []
 	return new Promise((resolve, reject) => {
 		getTopIDs(url).then(array => {
@@ -140,8 +140,14 @@ function hostURL(url) {
 		return ''
 	}
 	// console.log(url)
-	let urlObj = new URL(url)
-	let hostname = urlObj.hostname
+	let hostname
+	try {
+		hostname = new URL(url).hostname
+	} catch(e) {
+		//LLM gend hsome browsers reject urls like emoji domains - pull host out manually
+		let match = url.match(/^[a-z]+:\/\/([^/?#]+)/i)
+		hostname = match ? match[1] : ''
+	}
 	hostname = hostname.replace(/^(www\.)/, "");
 	return hostname
 }
@@ -188,15 +194,6 @@ function filterShowStories(){
 function encodeStr(base, query){
 	return encodeURI(`${base}${query}`)
 }
-// takes an array of results - returns value then increments
-// holds values in a closure
-const countBy30 = (function () {
-  var counter = 0
-  return function () {
-      counter = counter += 30
-      return counter
-  }
-})();
 function range(start, stop, step){
     return  Array.from({ length: (stop - start) / step }, (_, i) => start + (i * step))
 }

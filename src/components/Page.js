@@ -2,13 +2,11 @@ import React, {Component} from "react";
 import Post from "./Post";
 import Header from "./Header";
 import Footer from "./Footer";
-import data from "../data/post_data.json";
 import utils from "../utils";
 
 // import getJSON from "../utils"
 class Page extends Component {
 	constructor(props) {
-        // console.log('props page', props)
 		super(props)
 		this.state = {
             counter: 0,
@@ -142,7 +140,7 @@ class Page extends Component {
                     // console.log('state', this.state)
                 } else if(dataToGet === 'shownew'){
                     console.log('show')
-                    let showNews = items.map((item) => {
+                    items.map((item) => {
                         // filter undefined
                         if(item){
                             // filter out comments
@@ -183,7 +181,7 @@ class Page extends Component {
                     return a.time - b.time
                 }).reverse()
                 let counterAndChunk = this.paginate(stories)
-                console.log(counterAndChunk)
+                console.log('cc', counterAndChunk)
                 this.setState(prevState => ({
                     fullShowNew: [...prevState.stories, stories],
                     chunkShowNew: counterAndChunk,

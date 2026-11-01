@@ -14,10 +14,9 @@ function Header(props) {
     }
 	return (<div className="Header">
         <div className="header-cell logo">
-                {/*<a href={window.location.host + '/' + process.env.PUBLIC_URL}>*/}
                 <a href={setIndexRoute() + process.env.PUBLIC_URL}>
 
-                <img src="https://news.ycombinator.com/y18.gif"/>
+                <img src="https://news.ycombinator.com/y18.svg" alt="Home"/>
             </a>
         </div>
 		<div className="header-cell app-name">
@@ -26,7 +25,7 @@ function Header(props) {
             </a>
         </div>
 		<div className="header-cell login">
-        <a href="#">login</a>
+        <a href="https://news.ycombinator.com/login?goto=news">login</a>
         </div>
             <div className="header-links">
             {
